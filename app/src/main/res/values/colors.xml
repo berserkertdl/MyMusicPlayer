@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="titleBackgroundColor">#DF3130</color>
+    <color name="index_music_item_title_color">#5A5A5C</color>
+    <color name="index_music_item_count_color">#C8C8CA</color>
+    <color name="index_music_item_color">#FAFAFA</color>
+    <color name="index_music_item_select_color">#F2F2F2</color>
+ </resources>
