@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\contextmenu\src\main\res"><file name="fragment_menu" path="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\contextmenu\src\main\res\layout\fragment_menu.xml" qualifiers="" type="layout"/><file path="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\contextmenu\src\main\res\values\colors.xml" qualifiers=""><color name="menu_item_background">#f2f2f2</color><color name="menu_fragment_background">#B3000000</color><color name="divider_color">#b5b5b5</color></file><file path="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\contextmenu\src\main\res\values\dimens.xml" qualifiers=""><dimen name="text_right_translation">8dp</dimen><dimen name="text_right_padding">28dp</dimen><dimen name="text_wrapper_right_margin">-8dp</dimen><dimen name="menu_text_size">15sp</dimen><dimen name="menu_item_padding">2dp</dimen><dimen name="divider_height">1dp</dimen></file><file path="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\contextmenu\src\main\res\values\strings.xml" qualifiers=""><string name="app_name">ContextMenu</string></file><file path="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\contextmenu\src\main\res\values\styles.xml" qualifiers=""><style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@android:color/white</item>
+        <!-- Customize your theme here. -->
+    </style><style name="TextView.DefaultStyle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/menu_text_size</item>
+    </style><style name="MenuFragmentStyle" parent="AppTheme">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:colorForeground">@android:color/transparent</item>
+        <item name="android:colorForegroundInverse">@android:color/transparent</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style><style name="TextView"/></file></source><source path="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\contextmenu\build\generated\res\rs\debug"/><source path="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\contextmenu\build\generated\res\generated\debug"/></dataSet><dataSet config="debug"><source path="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\contextmenu\src\debug\res"/></dataSet><mergedItems/></merger>

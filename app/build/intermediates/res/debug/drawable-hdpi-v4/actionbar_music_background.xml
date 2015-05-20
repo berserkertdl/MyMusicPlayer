@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--默认背景-->
+    <item>
+        <bitmap android:src="@drawable/actionbar_music_normal" />
+    </item>
+
+    <item android:state_pressed="false" >
+        <bitmap android:src="@drawable/actionbar_music_normal" android:tileMode="disabled" />
+    </item>
+
+    <item android:state_pressed="true" >
+        <bitmap android:src="@drawable/actionbar_music_selected" android:tileMode="disabled"/>
+    </item>
+
+
+
+</selector>
+<!-- From: file:/E:/project/java/android/AndroidStudioProjects/MyMusicPlayer/app/src/main/res/drawable-hdpi/actionbar_music_background.xml -->
