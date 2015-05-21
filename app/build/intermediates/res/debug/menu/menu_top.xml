@@ -2,30 +2,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/actionBar_discover"
+            android:layout_width="wrap_content"
+            android:title="@string/context_menu"
+            android:orderInCategory="100"
+            android:checkable="true"
+            android:icon="@drawable/actionbar_discover_background"
+            app:showAsAction="always"/>
 
-    <item
-        android:id="@+id/actionBar_discover"
-        android:layout_width="wrap_content"
-        android:title="@string/context_menu"
-        android:orderInCategory="100"
-        android:icon="@drawable/actionbar_discover_background"
-        app:showAsAction="always"/>
+        <item
+            android:id="@+id/actionBar_music"
+            android:layout_height="wrap_content"
+            android:title="@string/context_menu"
+            android:orderInCategory="100"
+            android:checkable="true"
+            android:icon="@drawable/actionbar_music_background"
+            app:showAsAction="always"/>
 
-    <item
-        android:id="@+id/actionBar_music"
-        android:layout_height="wrap_content"
-        android:title="@string/context_menu"
-        android:orderInCategory="100"
-        android:icon="@drawable/actionbar_music_background"
-        app:showAsAction="always"/>
-
-    <item
-        android:id="@+id/actionBar_friends"
-        android:layout_height="wrap_content"
-        android:title="@string/context_menu"
-        android:orderInCategory="100"
-        android:icon="@drawable/actionbar_friends_selector"
-        app:showAsAction="always"/>
+        <item
+            android:id="@+id/actionBar_friends"
+            android:layout_height="wrap_content"
+            android:title="@string/context_menu"
+            android:orderInCategory="100"
+            android:checkable="true"
+            android:icon="@drawable/actionbar_friends_selector"
+            app:showAsAction="always"/>
+    </group>
 
     <item
         android:id="@+id/actionBar_search"

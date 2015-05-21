@@ -48,8 +48,10 @@
     <eat-comment/>
     <color name="index_music_item_color">#FAFAFA</color>
     <color name="index_music_item_count_color">#C8C8CA</color>
+    <color name="index_music_item_line_color">#E0E0E2</color>
     <color name="index_music_item_select_color">#F2F2F2</color>
     <color name="index_music_item_title_color">#5A5A5C</color>
+    <color name="item_icon_tint">#C52D2A</color>
     <!-- From: file:/E:/project/java/android/AndroidStudioProjects/MyMusicPlayer/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/res/values/values.xml -->
     <eat-comment/>
     <color name="link_text_material_dark">@color/material_deep_teal_200</color>
@@ -192,7 +194,8 @@
     <!-- From: file:/E:/project/java/android/AndroidStudioProjects/MyMusicPlayer/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="item_height">48dp</dimen>
-    <dimen name="item_icon_left_gap">16dp</dimen>
+    <dimen name="item_icon_left_gap">32dp</dimen>
+    <dimen name="item_line_gap">16dp</dimen>
     <dimen name="item_title_left_gap">72dp</dimen>
     <dimen name="item_title_right_gap">16dp</dimen>
     <dimen name="main_screen_side_padding">10dp</dimen>
@@ -278,6 +281,10 @@
         <item name="android:windowBackground">@android:color/white</item>
         <!-- SearchView -->
         <item name="searchViewStyle">@style/MySearchViewStyle</item>
+    </style>
+    <style name="AppTheme.MyDrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">false</item>
+        <item name="color">#FFFFFF</item>
     </style>
     <!-- From: file:/E:/project/java/android/AndroidStudioProjects/MyMusicPlayer/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/res/values/values.xml -->
     <eat-comment/>

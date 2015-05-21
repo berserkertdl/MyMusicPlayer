@@ -13,7 +13,7 @@
             android:fadingEdge="none"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/list_item_background" />
+            android:listSelector="@drawable/list_item_background" />
     </com.mymusicplayer.PullToRefreshView>
 </LinearLayout>
 <!-- From: file:/E:/project/java/android/AndroidStudioProjects/MyMusicPlayer/app/src/main/res/layout/index_music.xml -->

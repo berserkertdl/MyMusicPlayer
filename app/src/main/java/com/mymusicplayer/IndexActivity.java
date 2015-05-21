@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
@@ -11,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,8 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class IndexActivity extends ActionBarActivity implements OnMenuItemClickListener,
-        OnMenuItemLongClickListener {
+public class IndexActivity extends ActionBarActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -56,21 +57,19 @@ public class IndexActivity extends ActionBarActivity implements OnMenuItemClickL
 
     private List<View> views;
 
-    private  LayoutInflater lf;
+    private LayoutInflater lf;
 
     private int offset = 0;// 动画图片偏移量
     private int currIndex = 0;// 当前页卡编号
 
     private ListView index_music_list;
 
-    private List<Object []> musicTypes;
+    private List<Object[]> musicTypes;
 
     private PullToRefreshView pullToRefreshView;
 
     private DialogFragment mMenuDialogFragment;
     private FragmentManager fragmentManager;
-
-
 
 
     @Override
@@ -93,11 +92,31 @@ public class IndexActivity extends ActionBarActivity implements OnMenuItemClickL
         actionBar.setHomeButtonEnabled(false); //使左上角图标可点击
         actionBar.setDisplayHomeAsUpEnabled(false);// 给左上角图标的左边加上一个返回的图标
         actionBar.setDisplayShowTitleEnabled(false);
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.actionBar_discover:
+                        item.setChecked(true);
+                        break;
+                    case R.id.actionBar_music:
+                        item.setChecked(true);
+                        break;
+                    case R.id.actionBar_friends:
+                        item.setChecked(true);
+                        break;
+                }
+                return true;
+            }
+        });
 
         Toolbar toolbarBottom = (Toolbar) findViewById(R.id.toolbar_bottom);
         toolbarBottom.setLogo(R.drawable.default_disc_141);
         toolbarBottom.setTitle(R.string.action_title);
         toolbarBottom.setSubtitle(R.string.action_sub_title);
+
+        toolbarBottom.inflateMenu(R.menu.menu_bottom);
+
         toolbarBottom.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -111,8 +130,6 @@ public class IndexActivity extends ActionBarActivity implements OnMenuItemClickL
                 return true;
             }
         });
-
-        toolbarBottom.inflateMenu(R.menu.menu_bottom);
 
 
         // Inflate a menu to be displayed in the toolbar
@@ -128,7 +145,7 @@ public class IndexActivity extends ActionBarActivity implements OnMenuItemClickL
 //        mToolBarTextView.setText("Samantha");
     }
 
-    private void initComponet(){
+    private void initComponet() {
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         discover_bar = (ImageButton) findViewById(R.id.actionBar_discover);
@@ -148,9 +165,8 @@ public class IndexActivity extends ActionBarActivity implements OnMenuItemClickL
 
         PageChangListener pageChangeListener = new PageChangListener();
         mViewPager.setOnPageChangeListener(pageChangeListener);
-        index_music_list = (ListView)music_view.findViewById(R.id.local_music_list);
-        pullToRefreshView = (PullToRefreshView)music_view.findViewById(R.id.pull_refresh_view);
-
+        index_music_list = (ListView) music_view.findViewById(R.id.local_music_list);
+        pullToRefreshView = (PullToRefreshView) music_view.findViewById(R.id.pull_refresh_view);
 
 
     }
@@ -213,7 +229,7 @@ public class IndexActivity extends ActionBarActivity implements OnMenuItemClickL
         return menuObjects;
     }
 
-    private void initData(){
+    private void initData() {
         views = new ArrayList<View>();
         views.add(discover_view);
         views.add(music_view);
@@ -243,23 +259,23 @@ public class IndexActivity extends ActionBarActivity implements OnMenuItemClickL
             }
         };
         mViewPager.setAdapter(pageAdapter);
-        musicTypes = new ArrayList<Object []>();
-        Object [] obj1 = {R.drawable.music_icn_local,"本地音乐","（479）"};
+        musicTypes = new ArrayList<Object[]>();
+        Object[] obj1 = {R.drawable.music_icn_local, "本地音乐", "（479）"};
         musicTypes.add(obj1);
-        Object [] obj2 = {R.drawable.music_icn_recent,"最近播放","（100）"};
+        Object[] obj2 = {R.drawable.music_icn_recent, "最近播放", "（100）"};
         musicTypes.add(obj2);
-        Object [] obj3 = {R.drawable.music_icn_dld,"下载管理","（704）"};
+        Object[] obj3 = {R.drawable.music_icn_dld, "下载管理", "（704）"};
         musicTypes.add(obj3);
-        Object [] obj4 = {R.drawable.music_icn_artist,"我的歌手","（0）"};
+        Object[] obj4 = {R.drawable.music_icn_artist, "我的歌手", "（0）"};
         musicTypes.add(obj4);
-        Object [] obj5 = {R.drawable.music_icn_dj,"我的电台","（2）"};
+        Object[] obj5 = {R.drawable.music_icn_dj, "我的电台", "（2）"};
         musicTypes.add(obj5);
-        Object [] obj6 = {R.drawable.music_icn_mv,"我的MV","（6）"};
+        Object[] obj6 = {R.drawable.music_icn_mv, "我的MV", "（6）"};
         musicTypes.add(obj6);
         IndexMusicListAdpter indexMusicAdpter = new IndexMusicListAdpter();
         index_music_list.setAdapter(indexMusicAdpter);
 
-        pullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener(){
+        pullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 pullToRefreshView.postDelayed(new Runnable() {
@@ -359,18 +375,6 @@ public class IndexActivity extends ActionBarActivity implements OnMenuItemClickL
     }
 
 
-    @Override
-    public void onMenuItemClick(View clickedView, int position) {
-
-    }
-
-    @Override
-    public void onMenuItemLongClick(View clickedView, int position) {
-
-    }
-
-
-
     class IndexMusicListAdpter extends BaseAdapter {
 
 
@@ -390,14 +394,14 @@ public class IndexActivity extends ActionBarActivity implements OnMenuItemClickL
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
-            Object [] obj = musicTypes.get(position);
-            convertView = lf.inflate(R.layout.index_music_list_item,parent,false);
-            ImageView img = (ImageView)convertView.findViewById(R.id.item_icon);
-            img.setBackgroundResource(Integer.parseInt(obj[0]+""));
-            TextView titleView = (TextView)convertView.findViewById(R.id.item_title);
+            Object[] obj = musicTypes.get(position);
+            convertView = lf.inflate(R.layout.index_music_list_item, parent, false);
+            ImageView img = (ImageView) convertView.findViewById(R.id.item_icon);
+            img.setBackgroundResource(Integer.parseInt(obj[0] + ""));
+            TextView titleView = (TextView) convertView.findViewById(R.id.item_title);
             titleView.setText(obj[1] + "");
-            TextView countView = (TextView)convertView.findViewById(R.id.item_count);
-            countView.setText(obj[2]+"");
+            TextView countView = (TextView) convertView.findViewById(R.id.item_count);
+            countView.setText(obj[2] + "");
             return convertView;
         }
     }

@@ -5,4 +5,7 @@
     <color name="index_music_item_count_color">#C8C8CA</color>
     <color name="index_music_item_color">#FAFAFA</color>
     <color name="index_music_item_select_color">#F2F2F2</color>
+    <color name="index_music_item_line_color">#E0E0E2</color>
+    <color name="item_icon_tint">#C52D2A</color>
+
  </resources>

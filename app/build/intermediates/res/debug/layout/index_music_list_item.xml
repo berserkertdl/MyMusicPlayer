@@ -6,7 +6,7 @@
 
     <ImageView
         android:id="@+id/item_icon"
-        android:paddingLeft="@dimen/item_icon_left_gap"
+        android:layout_marginLeft="@dimen/item_icon_left_gap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"/>
@@ -31,6 +31,14 @@
         android:text="(10)"
         android:textColor="@color/index_music_item_count_color"
         android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/item_line_gap"
+        android:layout_marginRight="@dimen/item_line_gap"
+        android:layout_alignParentBottom="true"
+        android:background="@color/index_music_item_line_color" />
 
 </RelativeLayout>
 <!-- From: file:/E:/project/java/android/AndroidStudioProjects/MyMusicPlayer/app/src/main/res/layout/index_music_list_item.xml -->
