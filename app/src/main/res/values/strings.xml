@@ -14,8 +14,19 @@
     <string name="no_network">无网络连接</string>
 
     <string name="context_menu">menu</string>
+
     <string name="action_title">我的爱人</string>
     <string name="action_sub_title">陈小春</string>
+
+    <string name="music_local">本地音乐</string>
+    <string name="music_recent">最近播放</string>
+    <string name="music_dld">下载管理</string>
+    <string name="music_artist">我的歌手</string>
+    <string name="music_dj">我的电台</string>
+    <string name="music_mv">我的MV</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

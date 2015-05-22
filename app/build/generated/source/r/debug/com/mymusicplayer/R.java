@@ -1722,15 +1722,16 @@ containing a value of this type.
         public static final int abc_simple_dropdown_hint=0x7f040018;
         public static final int activity_index=0x7f040019;
         public static final int fragment_menu=0x7f04001a;
-        public static final int index_discover=0x7f04001b;
-        public static final int index_firends=0x7f04001c;
-        public static final int index_music=0x7f04001d;
-        public static final int index_music_list_item=0x7f04001e;
-        public static final int select_dialog_item_material=0x7f04001f;
-        public static final int select_dialog_multichoice_material=0x7f040020;
-        public static final int select_dialog_singlechoice_material=0x7f040021;
-        public static final int support_simple_spinner_dropdown_item=0x7f040022;
-        public static final int toolbar=0x7f040023;
+        public static final int index_=0x7f04001b;
+        public static final int index_discover=0x7f04001c;
+        public static final int index_firends=0x7f04001d;
+        public static final int index_music=0x7f04001e;
+        public static final int index_music_list_item=0x7f04001f;
+        public static final int select_dialog_item_material=0x7f040020;
+        public static final int select_dialog_multichoice_material=0x7f040021;
+        public static final int select_dialog_singlechoice_material=0x7f040022;
+        public static final int support_simple_spinner_dropdown_item=0x7f040023;
+        public static final int toolbar=0x7f040024;
     }
     public static final class menu {
         public static final int menu_bottom=0x7f0d0000;
@@ -1764,11 +1765,18 @@ containing a value of this type.
         public static final int action_title=0x7f0b0015;
         public static final int app_name=0x7f0b0016;
         public static final int context_menu=0x7f0b0017;
-        public static final int hello_world=0x7f0b0018;
-        public static final int no_network=0x7f0b0019;
-        public static final int title_section1=0x7f0b001a;
-        public static final int title_section2=0x7f0b001b;
-        public static final int title_section3=0x7f0b001c;
+        public static final int hello_blank_fragment=0x7f0b0018;
+        public static final int hello_world=0x7f0b0019;
+        public static final int music_artist=0x7f0b001a;
+        public static final int music_dj=0x7f0b001b;
+        public static final int music_dld=0x7f0b001c;
+        public static final int music_local=0x7f0b001d;
+        public static final int music_mv=0x7f0b001e;
+        public static final int music_recent=0x7f0b001f;
+        public static final int no_network=0x7f0b0020;
+        public static final int title_section1=0x7f0b0021;
+        public static final int title_section2=0x7f0b0022;
+        public static final int title_section3=0x7f0b0023;
     }
     public static final class style {
         public static final int AlertDialog_AppCompat=0x7f0c0000;
