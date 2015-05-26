@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/contextmenu" />
             <option value="$PROJECT_DIR$/library" />
+            <option value="$PROJECT_DIR$/pageslidertabtrip" />
           </set>
         </option>
       </GradleProjectSettings>

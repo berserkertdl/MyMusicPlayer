@@ -1,16 +1,19 @@
 package com.mymusicplayer.ui.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.mymusicplayer.PullToRefreshView;
 import com.mymusicplayer.R;
+import com.mymusicplayer.activities.LocalMusicActivity;
 import com.mymusicplayer.ui.adapters.MusicGudieAdpter;
 
 import java.util.ArrayList;
@@ -64,6 +67,12 @@ public class MusicGuideFragment extends Fragment {
         if(index_music_list!=null){
             index_music_list.setAdapter(musicGudieAdpter);
         }
+        index_music_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startActivity(new Intent(getActivity(), LocalMusicActivity.class));
+            }
+        });
 
 
         pullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {

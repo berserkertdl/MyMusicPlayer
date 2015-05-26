@@ -1,1 +1,1 @@
-include ':app', ':library', ':contextmenu'
+include ':app', ':library', ':contextmenu', ':pageslidertabtrip'

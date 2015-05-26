@@ -7,5 +7,8 @@
     <color name="index_music_item_select_color">#F2F2F2</color>
     <color name="index_music_item_line_color">#E0E0E2</color>
     <color name="item_icon_tint">#C52D2A</color>
+    <color name="background_window">#FFE5E5E5</color>
+    <color name="pagerTabIndicatorColor">#DF3130</color>
+    <color name="pagerTabUnderlineColorResource">#00000000</color>
 
  </resources>
