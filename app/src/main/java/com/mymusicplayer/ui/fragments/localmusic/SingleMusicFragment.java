@@ -3,7 +3,9 @@ package com.mymusicplayer.ui.fragments.localmusic;
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,8 +91,11 @@ public class SingleMusicFragment extends Fragment implements AbsListView.OnItemC
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.local_single_music, container, false);
         localMusicList = (ListView)view.findViewById(R.id.local_music_list);
-        Cursor cursor = getActivity().getContentResolver().query();
+        Cursor cursor = getActivity().getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,new String[]{MediaStore.Video.Media.TITLE},null,null,null);
+        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(getActivity(),R.layout.local_music_list_item,cursor,
+                new String[]{MediaStore.Audio.Media.TITLE}, new int [] {R.id.music_name});
         getActivity().startManagingCursor(cursor);
+        localMusicList.setAdapter(cursorAdapter);
 
         // Set the adapter
 //        mListView = (AbsListView) view.findViewById(android.R.id.list);

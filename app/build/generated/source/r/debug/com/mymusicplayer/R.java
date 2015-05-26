@@ -1707,10 +1707,10 @@ containing a value of this type.
         public static final int tabs_pattern_diagonal=0x7f020073;
     }
     public static final class id {
-        public static final int actionBar_discover=0x7f0a0062;
-        public static final int actionBar_friends=0x7f0a0064;
-        public static final int actionBar_music=0x7f0a0063;
-        public static final int actionBar_search=0x7f0a0065;
+        public static final int actionBar_discover=0x7f0a0063;
+        public static final int actionBar_friends=0x7f0a0065;
+        public static final int actionBar_music=0x7f0a0064;
+        public static final int actionBar_search=0x7f0a0066;
         public static final int action_bar=0x7f0a0041;
         public static final int action_bar_activity_content=0x7f0a0000;
         public static final int action_bar_container=0x7f0a0040;
@@ -1724,9 +1724,9 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f0a003e;
         public static final int action_mode_bar_stub=0x7f0a003d;
         public static final int action_mode_close_button=0x7f0a0026;
-        public static final int action_next=0x7f0a0060;
-        public static final int action_play=0x7f0a005f;
-        public static final int action_settings=0x7f0a0061;
+        public static final int action_next=0x7f0a0061;
+        public static final int action_play=0x7f0a0060;
+        public static final int action_settings=0x7f0a0062;
         public static final int activity_chooser_view_content=0x7f0a0027;
         public static final int alertTitle=0x7f0a0031;
         public static final int always=0x7f0a0016;
@@ -1735,7 +1735,7 @@ containing a value of this type.
         public static final int checkbox=0x7f0a0039;
         public static final int collapseActionView=0x7f0a0017;
         public static final int contentPanel=0x7f0a0032;
-        public static final int context_menu=0x7f0a0066;
+        public static final int context_menu=0x7f0a0067;
         public static final int custom=0x7f0a0036;
         public static final int customPanel=0x7f0a0035;
         public static final int decor_content_parent=0x7f0a003f;
@@ -1761,6 +1761,7 @@ containing a value of this type.
         public static final int local_music_list=0x7f0a005b;
         public static final int middle=0x7f0a0015;
         public static final int multiply=0x7f0a001f;
+        public static final int music_name=0x7f0a005f;
         public static final int never=0x7f0a0019;
         public static final int none=0x7f0a000e;
         public static final int normal=0x7f0a000a;
@@ -1843,7 +1844,7 @@ containing a value of this type.
         public static final int abc_select_dialog_material=0x7f040017;
         public static final int abc_simple_dropdown_hint=0x7f040018;
         public static final int activity_index=0x7f040019;
-        public static final int fragment_item=0x7f04002b;
+        public static final int fragment_item=0x7f04002c;
         public static final int fragment_menu=0x7f04001a;
         public static final int fragment_quick_contact=0x7f04001b;
         public static final int index_discover=0x7f04001c;
@@ -1853,14 +1854,15 @@ containing a value of this type.
         public static final int item_grid_fragment=0x7f040020;
         public static final int local_music=0x7f040021;
         public static final int local_music_folder=0x7f040022;
-        public static final int local_music_singer=0x7f040023;
-        public static final int local_music_special=0x7f040024;
-        public static final int local_single_music=0x7f040025;
-        public static final int select_dialog_item_material=0x7f040026;
-        public static final int select_dialog_multichoice_material=0x7f040027;
-        public static final int select_dialog_singlechoice_material=0x7f040028;
-        public static final int support_simple_spinner_dropdown_item=0x7f040029;
-        public static final int toolbar=0x7f04002a;
+        public static final int local_music_list_item=0x7f040023;
+        public static final int local_music_singer=0x7f040024;
+        public static final int local_music_special=0x7f040025;
+        public static final int local_single_music=0x7f040026;
+        public static final int select_dialog_item_material=0x7f040027;
+        public static final int select_dialog_multichoice_material=0x7f040028;
+        public static final int select_dialog_singlechoice_material=0x7f040029;
+        public static final int support_simple_spinner_dropdown_item=0x7f04002a;
+        public static final int toolbar=0x7f04002b;
     }
     public static final class menu {
         public static final int menu_bottom=0x7f0e0000;
