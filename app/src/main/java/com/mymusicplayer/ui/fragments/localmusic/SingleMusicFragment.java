@@ -1,6 +1,7 @@
 package com.mymusicplayer.ui.fragments.localmusic;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -91,19 +92,12 @@ public class SingleMusicFragment extends Fragment implements AbsListView.OnItemC
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.local_single_music, container, false);
         localMusicList = (ListView)view.findViewById(R.id.local_music_list);
-        Cursor cursor = getActivity().getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,new String[]{MediaStore.Video.Media.TITLE},null,null,null);
+        ContentResolver contentResolver = getActivity().getContentResolver();
+        Cursor cursor = contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, new String[]{MediaStore.Video.Media._ID, MediaStore.Video.Media.TITLE}, null, null, null);
         SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(getActivity(),R.layout.local_music_list_item,cursor,
                 new String[]{MediaStore.Audio.Media.TITLE}, new int [] {R.id.music_name});
         getActivity().startManagingCursor(cursor);
         localMusicList.setAdapter(cursorAdapter);
-
-        // Set the adapter
-//        mListView = (AbsListView) view.findViewById(android.R.id.list);
-//        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
-//
-//        // Set OnItemClickListener so we can be notified on item clicks
-//        mListView.setOnItemClickListener(this);
-
         return view;
     }
 
