@@ -15,12 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 
 import com.contextmenu.ContextMenuDialogFragment;
@@ -28,7 +23,6 @@ import com.contextmenu.MenuObject;
 import com.contextmenu.MenuParams;
 import com.mymusicplayer.PullToRefreshView;
 import com.mymusicplayer.R;
-import com.mymusicplayer.ui.adapters.MusicGudieAdpter;
 import com.mymusicplayer.ui.adapters.PagerAdapter;
 import com.mymusicplayer.ui.fragments.DiscoverFragment;
 import com.mymusicplayer.ui.fragments.FirendsFragment;

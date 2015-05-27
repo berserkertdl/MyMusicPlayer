@@ -1,8 +1,13 @@
 package com.mymusicplayer.ui.fragments.localmusic;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +15,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mymusicplayer.R;
@@ -79,19 +85,24 @@ public class MusicSpecialFragment extends Fragment implements AbsListView.OnItem
                 android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
     }
 
+    private ListView localMusicSpecialList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.local_music_special, container, false);
 
-        // Set the adapter
-//        mListView = (AbsListView) view.findViewById(android.R.id.list);
-//        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
-//
-//        // Set OnItemClickListener so we can be notified on item clicks
-//        mListView.setOnItemClickListener(this);
-
+        localMusicSpecialList = (ListView)view.findViewById(R.id.local_music_special);
+        Log.e("MusicSpecialFragMent","onCreate-process");
+        ContentResolver contentResolver = getActivity().getContentResolver();
+        Cursor cursor = contentResolver.query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, null, null, null, null);
+        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(getActivity(),R.layout.local_music_list_item,cursor,
+                new String[]{MediaStore.Audio.AlbumColumns.ALBUM}, new int [] {R.id.title});
+        getActivity().startManagingCursor(cursor);
+        localMusicSpecialList.setAdapter(cursorAdapter);
+        Log.e("MusicSpecialFragMent", "onCreate--OK");
         return view;
+
     }
 
     @Override

@@ -20,7 +20,7 @@ import android.widget.ImageView;
 import com.library.R;
 import com.mymusicplayer.refresh_view.BaseRefreshView;
 import com.mymusicplayer.refresh_view.SunRefreshView;
-import com.mymusicplayer.util.Utils;
+import com.mymusicplayer.refresh_view.util.Utils;
 
 import java.security.InvalidParameterException;
 

@@ -16,7 +16,7 @@ import android.view.animation.Transformation;
 
 import com.mymusicplayer.PullToRefreshView;
 import com.library.R;
-import com.mymusicplayer.util.Utils;
+import com.mymusicplayer.refresh_view.util.Utils;
 
 /**
  * Created by Oleksii Shliama on 22/12/2014.

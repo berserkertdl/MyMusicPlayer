@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -93,9 +93,9 @@ public class SingleMusicFragment extends Fragment implements AbsListView.OnItemC
         View view = inflater.inflate(R.layout.local_single_music, container, false);
         localMusicList = (ListView)view.findViewById(R.id.local_music_list);
         ContentResolver contentResolver = getActivity().getContentResolver();
-        Cursor cursor = contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, new String[]{MediaStore.Video.Media._ID, MediaStore.Video.Media.TITLE}, null, null, null);
+        Cursor cursor = contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, new String[]{BaseColumns._ID, MediaStore.Audio.Media.TITLE}, null, null, null);
         SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(getActivity(),R.layout.local_music_list_item,cursor,
-                new String[]{MediaStore.Audio.Media.TITLE}, new int [] {R.id.music_name});
+                new String[]{MediaStore.Audio.Media.TITLE}, new int [] {R.id.title});
         getActivity().startManagingCursor(cursor);
         localMusicList.setAdapter(cursorAdapter);
         return view;
@@ -113,7 +113,7 @@ public class SingleMusicFragment extends Fragment implements AbsListView.OnItemC
     }
 
     @Override
-    public void onDetach() {
+      public void onDetach() {
         super.onDetach();
         mListener = null;
     }
