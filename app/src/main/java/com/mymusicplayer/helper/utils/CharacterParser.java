@@ -1,4 +1,4 @@
-package com.mymusicplayer.sliderbar.util;
+package com.mymusicplayer.helper.utils;
 
 /**
  * Java汉字转换为拼音

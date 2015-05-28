@@ -1,37 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="?attr/dropdownListPreferredItemHeight"
-    android:paddingLeft="16dip"
-    android:paddingRight="16dip"
-    android:minWidth="196dip"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:duplicateParentState="true" >
+    <RelativeLayout android:id="@+id/catalog_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/catalog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:paddingBottom="5dip"
+            android:paddingLeft="12dip"
+            android:paddingTop="5dip"
+            android:text="A"
+            android:textColor="#454545" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="@dimen/item_line_gap"
+            android:layout_marginRight="@dimen/item_line_gap"
+            android:background="@color/index_music_item_line_color" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:duplicateParentState="true">
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="32dip"
-            android:layout_height="32dip"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="8dip"
-            android:duplicateParentState="true"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="32dp"
+            android:maxHeight="32dp"
+            android:duplicateParentState="true"
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/ic_launcher" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textAppearance="?attr/textAppearanceLargePopupMenu"
+            android:layout_toRightOf="@id/icon"
+            android:layout_marginLeft="12dp"
+            android:paddingTop="2dp"
             android:duplicateParentState="true"
-            android:singleLine="true"
             android:ellipsize="marquee"
-            android:fadingEdge="horizontal"/>
+            android:fadingEdge="horizontal"
+            android:singleLine="true"
+            android:text="singer" android:textSize="22sp"
+            android:textColor="#454545"/>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/subTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_alignLeft="@id/title"
+            android:paddingTop="4dp"
+            android:duplicateParentState="true"
+            android:ellipsize="marquee"
+            android:fadingEdge="horizontal"
+            android:singleLine="true"
+            android:text="1首" android:textColor="#454545" />
+
+        <TextView
+            android:id="@+id/midTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/subTitle"
+            android:layout_alignBottom="@id/subTitle"
+            android:duplicateParentState="true"
+            android:ellipsize="marquee"
+            android:fadingEdge="horizontal"
+            android:singleLine="true"
+            android:text="1首" android:textColor="#454545" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/item_line_gap"
+        android:layout_marginRight="@dimen/item_line_gap"
+        android:background="@color/index_music_item_line_color" />
 
 
 </LinearLayout>

@@ -2,12 +2,10 @@ package com.mymusicplayer.ui.fragments.localmusic;
 
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +18,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mymusicplayer.R;
+import com.mymusicplayer.helper.database.SortCursor;
+import com.mymusicplayer.sliderbar.SideBar;
+import com.mymusicplayer.ui.adapters.SortCursorAdpter;
 import com.mymusicplayer.ui.fragments.dummy.DummyContent;
 
 /**
@@ -55,6 +56,8 @@ public class MusicSingerFragment extends Fragment implements AbsListView.OnItemC
      */
     private ListAdapter mAdapter;
 
+    private SideBar sideBar;
+
     // TODO: Rename and change types of parameters
     public static MusicSingerFragment newInstance(String param1, String param2) {
         MusicSingerFragment fragment = new MusicSingerFragment();
@@ -87,6 +90,7 @@ public class MusicSingerFragment extends Fragment implements AbsListView.OnItemC
     }
 
     private ListView localMusicSingerList;
+    private SortCursorAdpter cursorAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,10 +98,25 @@ public class MusicSingerFragment extends Fragment implements AbsListView.OnItemC
         View view = inflater.inflate(R.layout.local_music_singer, container, false);
 
        localMusicSingerList = (ListView)view.findViewById(R.id.local_music_singer);
+        sideBar = (SideBar)view.findViewById(R.id.sideBar);
+
+        sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
+            @Override
+            public void onTouchingLetterChanged(String s) {
+                Log.e("OnTouchingLetterChanged", s);
+                //该字母首次出现的位置
+                int position = cursorAdapter.getPositionForSection(s.charAt(0));
+                if(position!=-1){
+                    localMusicSingerList.setSelection(position);
+                }
+            }
+
+        });
+
         Log.e("MusicSingerFragMent", "onCreate-process");
         ContentResolver contentResolver = getActivity().getContentResolver();
-        Cursor cursor = contentResolver.query(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI, new String[]{BaseColumns._ID, MediaStore.Audio.AudioColumns.ARTIST}, null, null, null);
-        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(getActivity(),R.layout.local_music_list_item,cursor,
+        SortCursor cursor = new SortCursor(contentResolver.query(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI, new String[]{BaseColumns._ID, MediaStore.Audio.AudioColumns.ARTIST}, null, null, null),MediaStore.Audio.AudioColumns.ARTIST);
+        cursorAdapter = new SortCursorAdpter(getActivity(),R.layout.local_music_list_item,cursor,
                 new String[]{MediaStore.Audio.AudioColumns.ARTIST}, new int [] {R.id.title});
         getActivity().startManagingCursor(cursor);
         localMusicSingerList.setAdapter(cursorAdapter);
