@@ -11,4 +11,17 @@
     <color name="pagerTabIndicatorColor">#DF3130</color>
     <color name="pagerTabUnderlineColorResource">#00000000</color>
 
- </resources>
+    <!-- A semi-transparent dark Holo shade of blue -->
+    <color name="holo_blue_dark">#ff0099cc</color>
+    <color name="holo_dark">#E8E8E8</color>
+
+    <!-- Transparent -->
+    <color name="transparent">#00000000</color>
+
+
+    <color name="black">#000000</color>
+
+
+
+
+</resources>

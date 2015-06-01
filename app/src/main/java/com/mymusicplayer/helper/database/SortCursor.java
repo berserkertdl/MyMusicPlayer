@@ -6,7 +6,7 @@ import android.database.CursorWrapper;
 
 import com.mymusicplayer.helper.utils.CharacterParser;
 import com.mymusicplayer.helper.utils.PinyinComparator;
-import com.mymusicplayer.helper.vo.SortEntry;
+import com.mymusicplayer.helper.vo.SortEntity;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.List;
 public class SortCursor extends CursorWrapper {
 
     private Cursor mCursor;
-    private List<SortEntry> sortList = new ArrayList<SortEntry>();
+    private List<SortEntity> sortList = new ArrayList<SortEntity>();
     private int mPos = 0;
     //直接初始化,加快比较速度,在G3上从3s->0.2s
     @SuppressWarnings("rawtypes")
@@ -33,7 +33,7 @@ public class SortCursor extends CursorWrapper {
      */
     private CharacterParser characterParser;
 
-    public List<SortEntry> getSortList() {
+    public List<SortEntity> getSortList() {
         return sortList;
     }
 
@@ -49,7 +49,7 @@ public class SortCursor extends CursorWrapper {
             int i = 0;
             int column = cursor.getColumnIndexOrThrow(columnName);
             for (mCursor.moveToFirst(); !mCursor.isAfterLast(); mCursor.moveToNext(), i++) {
-                SortEntry sortKey = new SortEntry();
+                SortEntity sortKey = new SortEntity();
                 String name = cursor.getString(column);
                 sortKey.setName(name);
                 //汉字转换成拼音

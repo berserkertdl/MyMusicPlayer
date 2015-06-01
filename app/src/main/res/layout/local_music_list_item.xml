@@ -4,85 +4,74 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <RelativeLayout android:id="@+id/catalog_title"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
-
-        <TextView
-            android:id="@+id/catalog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:paddingBottom="5dip"
-            android:paddingLeft="12dip"
-            android:paddingTop="5dip"
-            android:text="A"
-            android:textColor="#454545" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/item_line_gap"
-            android:layout_marginRight="@dimen/item_line_gap"
-            android:background="@color/index_music_item_line_color" />
-
-    </RelativeLayout>
+    <include layout="@layout/context_item_catalog"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height"
+        android:layout_height="@dimen/item_high_height"
         android:duplicateParentState="true">
 
         <ImageView
             android:id="@+id/icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="32dp"
-            android:maxHeight="32dp"
-            android:duplicateParentState="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
-            android:src="@drawable/ic_launcher" />
+            android:duplicateParentState="true"
+            android:maxHeight="32dp"
+            android:maxWidth="32dp"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/icon"
+            android:layout_marginRight="60dp"
             android:layout_marginLeft="12dp"
-            android:paddingTop="2dp"
+            android:layout_toRightOf="@id/icon"
             android:duplicateParentState="true"
             android:ellipsize="marquee"
             android:fadingEdge="horizontal"
+            android:paddingTop="6dp"
             android:singleLine="true"
-            android:text="singer" android:textSize="22sp"
-            android:textColor="#454545"/>
+            android:textColor="#454545"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/subTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/title"
             android:layout_alignLeft="@id/title"
-            android:paddingTop="4dp"
+            android:layout_below="@id/title"
             android:duplicateParentState="true"
             android:ellipsize="marquee"
             android:fadingEdge="horizontal"
+            android:paddingTop="4dp"
             android:singleLine="true"
-            android:text="1首" android:textColor="#454545" />
+            android:textColor="@color/index_music_item_count_color"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/midTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/subTitle"
             android:layout_alignBottom="@id/subTitle"
+            android:layout_toRightOf="@id/subTitle"
+            android:layout_marginRight="60dp"
+            android:layout_marginLeft="2dp"
             android:duplicateParentState="true"
             android:ellipsize="marquee"
             android:fadingEdge="horizontal"
             android:singleLine="true"
-            android:text="1首" android:textColor="#454545" />
+            android:textColor="@color/index_music_item_count_color"
+            android:textSize="12sp" />
+
+        <include layout="@layout/context_item_menu" />
 
     </RelativeLayout>
+
+    <include layout="@layout/context_item_operlay" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -90,6 +79,8 @@
         android:layout_marginLeft="@dimen/item_line_gap"
         android:layout_marginRight="@dimen/item_line_gap"
         android:background="@color/index_music_item_line_color" />
+
+
 
 
 </LinearLayout>

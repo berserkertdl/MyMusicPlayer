@@ -3,7 +3,7 @@ package com.mymusicplayer.helper.vo;
 /**
  * Created by Administrator on 2015/5/28 0028.
  */
-public class SortEntry {
+public class SortEntity {
     private String name;   //显示的数据
     private String sortLetters;  //显示数据拼音的首字母
     private int order;

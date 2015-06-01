@@ -10,7 +10,7 @@
 
     <com.mymusicplayer.sliderbar.SideBar
         android:id="@+id/sideBar"
-        android:layout_width="28dip"
+        android:layout_width="22dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"/>
 

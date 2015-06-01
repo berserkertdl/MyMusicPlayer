@@ -6,13 +6,15 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mymusicplayer.R;
 import com.mymusicplayer.helper.database.SortCursor;
-import com.mymusicplayer.helper.vo.SortEntry;
+import com.mymusicplayer.helper.vo.SortEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2015/5/26 0026.
@@ -21,23 +23,28 @@ public class SortCursorAdpter extends SimpleCursorAdapter {
 
     private SortCursor mSortCursor;
 
+    private int mLayout;
+
     public SortCursorAdpter(Context context, int layout, SortCursor c, String[] from, int[] to) {
         super(context, layout, c, from, to);
         this.mSortCursor = c;
-
+        this.mLayout = layout;
     }
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
+
+        if (!mCursor.moveToPosition(position)) {
+            throw new IllegalStateException("couldn't move cursor to position " + position);
+        }
         ViewHolder viewHolder = null;
-        final SortEntry mContent = mSortCursor.getSortList().get(position);
+        final SortEntity mContent = mSortCursor.getSortList().get(position);
+        TextView catalog,title,subTitle,midTitle;
         if (view == null) {
+//            view = LayoutInflater.from(mContext).inflate(R.layout.local_music_list_item, null);
+            view = LayoutInflater.from(mContext).inflate(mLayout, null);
             viewHolder = new ViewHolder();
-            view = LayoutInflater.from(mContext).inflate(R.layout.local_music_list_item, null);
-//           view = newView(mContext, mCursor, parent);
-            viewHolder.tvTitle = (TextView) view.findViewById(R.id.title);
-            viewHolder.tvLetter = (TextView) view.findViewById(R.id.catalog);
-            view.setTag(viewHolder);
+            bindView(view,viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
@@ -47,13 +54,48 @@ public class SortCursorAdpter extends SimpleCursorAdapter {
 
         //如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
         if(position == getPositionForSection(section)){
-            viewHolder.tvLetter.setVisibility(View.VISIBLE);
+            viewHolder.view.setVisibility(View.VISIBLE);
             viewHolder.tvLetter.setText(mContent.getSortLetters());
         }else{
-            viewHolder.tvLetter.setVisibility(View.GONE);
+            viewHolder.view.setVisibility(View.GONE);
         }
-        viewHolder.tvTitle.setText(mContent.getName());
+
+        bindData(viewHolder,mCursor);
         return view;
+    }
+
+    public void bindView(View view,ViewHolder viewHolder) {
+        final int count = mTo.length;
+        final int[] to = mTo;
+        viewHolder.tvLetter = (TextView) view.findViewById(R.id.catalog);
+        viewHolder.view = view.findViewById(R.id.local_music_list_catalog_frame);
+        for (int i = 0; i < count; i++) {
+            final View v = view.findViewById(to[i]);
+            if (v != null) {
+                viewHolder.views.add(v);
+            }
+        }
+
+        view.setTag(viewHolder);
+    }
+
+    public void bindData(ViewHolder viewHolder, Cursor cursor){
+        if(viewHolder==null||viewHolder.views==null){
+            return;
+        }
+        final int[] from = mFrom;
+        int i = 0;
+        for(View v : viewHolder.views){
+            String text = cursor.getString(from[i++]);
+            if (v instanceof TextView) {
+                setViewText((TextView) v, text);
+            } else if (v instanceof ImageView) {
+                setViewImage((ImageView) v, text);
+            } else {
+                throw new IllegalStateException(v.getClass().getName() + " is not a " +
+                        " view that can be bounds by this SimpleCursorAdapter");
+            }
+        }
     }
 
     /**
@@ -79,7 +121,8 @@ public class SortCursorAdpter extends SimpleCursorAdapter {
 
     final static class ViewHolder {
         TextView tvLetter;
-        TextView tvTitle;
+        View view;
+        List<View> views = new ArrayList<View>();
     }
 
 

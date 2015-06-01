@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="false" >
+        <bitmap android:src="@drawable/abs_spinner_ab_default_holo_dark" android:tileMode="disabled" android:gravity="top"/>
+    </item>
+
+    <item android:state_pressed="true" >
+        <bitmap android:src="@drawable/abs_spinner_ab_default_holo_light" android:tileMode="disabled" android:gravity="top"/>
+    </item>
+    
+    <item android:state_enabled="false" >
+        <bitmap android:src="@drawable/abs_spinner_ab_disabled_holo_dark" android:tileMode="disabled" android:gravity="top"/>
+    </item>
+
+    <item>
+        <bitmap android:src="@drawable/abs_spinner_ab_default_holo_dark" android:tileMode="disabled" android:gravity="top"/>
+    </item>
+
+
+
+
+</selector>

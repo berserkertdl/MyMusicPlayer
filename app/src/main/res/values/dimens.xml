@@ -9,6 +9,7 @@
     <dimen name="title_text_size">26sp</dimen>
     <dimen name="tool_bar_height">56dp</dimen>
     <dimen name="item_height">48dp</dimen>
+    <dimen name="item_high_height">56dp</dimen>
     <dimen name="item_icon_left_gap">32dp</dimen>
     <dimen name="item_title_left_gap">72dp</dimen>
     <dimen name="item_title_right_gap">16dp</dimen>

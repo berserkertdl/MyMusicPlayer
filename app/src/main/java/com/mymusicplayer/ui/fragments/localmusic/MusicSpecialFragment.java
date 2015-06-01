@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -95,9 +96,9 @@ public class MusicSpecialFragment extends Fragment implements AbsListView.OnItem
         localMusicSpecialList = (ListView)view.findViewById(R.id.local_music_special);
         Log.e("MusicSpecialFragMent","onCreate-process");
         ContentResolver contentResolver = getActivity().getContentResolver();
-        Cursor cursor = contentResolver.query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, null, null, null, null);
+        Cursor cursor = contentResolver.query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, new String[]{BaseColumns._ID, MediaStore.Audio.AlbumColumns.ALBUM, MediaStore.Audio.AlbumColumns.NUMBER_OF_SONGS, MediaStore.Audio.AlbumColumns.ARTIST}, null, null, null);
         SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(getActivity(),R.layout.local_music_list_item,cursor,
-                new String[]{MediaStore.Audio.AlbumColumns.ALBUM}, new int [] {R.id.title});
+                new String[]{MediaStore.Audio.AlbumColumns.ALBUM, MediaStore.Audio.AlbumColumns.NUMBER_OF_SONGS, MediaStore.Audio.AlbumColumns.ARTIST}, new int [] {R.id.title,R.id.subTitle,R.id.midTitle});
         getActivity().startManagingCursor(cursor);
         localMusicSpecialList.setAdapter(cursorAdapter);
         Log.e("MusicSpecialFragMent", "onCreate--OK");

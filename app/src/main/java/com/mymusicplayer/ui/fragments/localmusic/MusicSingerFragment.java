@@ -115,9 +115,9 @@ public class MusicSingerFragment extends Fragment implements AbsListView.OnItemC
 
         Log.e("MusicSingerFragMent", "onCreate-process");
         ContentResolver contentResolver = getActivity().getContentResolver();
-        SortCursor cursor = new SortCursor(contentResolver.query(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI, new String[]{BaseColumns._ID, MediaStore.Audio.AudioColumns.ARTIST}, null, null, null),MediaStore.Audio.AudioColumns.ARTIST);
+        SortCursor cursor = new SortCursor(contentResolver.query(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI, new String[]{BaseColumns._ID, MediaStore.Audio.ArtistColumns.ARTIST, MediaStore.Audio.ArtistColumns.NUMBER_OF_TRACKS}, null, null, null),MediaStore.Audio.AudioColumns.ARTIST);
         cursorAdapter = new SortCursorAdpter(getActivity(),R.layout.local_music_list_item,cursor,
-                new String[]{MediaStore.Audio.AudioColumns.ARTIST}, new int [] {R.id.title});
+                new String[]{MediaStore.Audio.AudioColumns.ARTIST,MediaStore.Audio.ArtistColumns.NUMBER_OF_TRACKS}, new int [] {R.id.title,R.id.subTitle});
         getActivity().startManagingCursor(cursor);
         localMusicSingerList.setAdapter(cursorAdapter);
         Log.e("MusicSingerFragMent", "onCreate-OK");

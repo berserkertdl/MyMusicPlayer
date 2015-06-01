@@ -16,6 +16,8 @@ import com.mymusicplayer.ui.fragments.localmusic.MusicSingerFragment;
 import com.mymusicplayer.ui.fragments.localmusic.MusicSpecialFragment;
 import com.mymusicplayer.ui.fragments.localmusic.SingleMusicFragment;
 
+import java.util.List;
+
 public class LocalMusicActivity extends ActionBarActivity {
 
     private final Handler handler = new Handler();
