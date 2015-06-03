@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.mymusicplayer.R;
 
+import com.mymusicplayer.helper.database.DBManager;
 import com.mymusicplayer.helper.utils.MusicUtil;
 import com.mymusicplayer.helper.vo.MusicEntity;
 import com.mymusicplayer.ui.fragments.dummy.DummyContent;
@@ -97,7 +98,8 @@ public class SingleMusicFragment extends Fragment implements AbsListView.OnItemC
         View view = inflater.inflate(R.layout.local_single_music, container, false);
         localMusicList = (ListView)view.findViewById(R.id.local_music_list);
         ContentResolver contentResolver = getActivity().getContentResolver();
-        Cursor cursor = contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, new String[]{BaseColumns._ID, MediaStore.Audio.AudioColumns.TITLE,MediaStore.Audio.AudioColumns.ARTIST,MediaStore.Audio.AudioColumns.ALBUM}, null, null, null);
+//        Cursor cursor = contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, new String[]{BaseColumns._ID, MediaStore.Audio.AudioColumns.TITLE,MediaStore.Audio.AudioColumns.ARTIST,MediaStore.Audio.AudioColumns.ALBUM}, null, null, null);
+        Cursor cursor = DBManager.getAllAudioMedio();
         SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(getActivity(),R.layout.local_music_list_item,cursor,
                 new String[]{MediaStore.Audio.Media.TITLE,MediaStore.Audio.AudioColumns.ARTIST,MediaStore.Audio.AudioColumns.ALBUM}, new int [] {R.id.title,R.id.subTitle,R.id.midTitle});
         getActivity().startManagingCursor(cursor);

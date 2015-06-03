@@ -23,6 +23,8 @@ import com.contextmenu.MenuObject;
 import com.contextmenu.MenuParams;
 import com.mymusicplayer.PullToRefreshView;
 import com.mymusicplayer.R;
+import com.mymusicplayer.helper.database.DBManager;
+import com.mymusicplayer.helper.utils.DBThread;
 import com.mymusicplayer.ui.adapters.PagerAdapter;
 import com.mymusicplayer.ui.fragments.DiscoverFragment;
 import com.mymusicplayer.ui.fragments.FirendsFragment;
@@ -195,6 +197,11 @@ public class IndexActivity extends ActionBarActivity {
     }
 
     private void initData() {
+        DBManager.init(this);
+        if(DBManager.getAllLocalAudioMedioCount()==0){
+            new DBThread().new InitThread(this).start();
+        }
+
         PagerAdapter fragmentPagerAdapter = new PagerAdapter(getSupportFragmentManager());
         fragmentPagerAdapter.addFragment(new DiscoverFragment());
         fragmentPagerAdapter.addFragment(new MusicGuideFragment());

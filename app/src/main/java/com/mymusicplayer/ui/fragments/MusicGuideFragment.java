@@ -1,5 +1,6 @@
 package com.mymusicplayer.ui.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.widget.ListView;
 import com.mymusicplayer.PullToRefreshView;
 import com.mymusicplayer.R;
 import com.mymusicplayer.activities.LocalMusicActivity;
+import com.mymusicplayer.helper.database.DBManager;
+import com.mymusicplayer.helper.utils.DBThread;
 import com.mymusicplayer.ui.adapters.MusicGudieAdpter;
 
 import java.util.ArrayList;
@@ -31,17 +34,21 @@ public class MusicGuideFragment extends Fragment {
     private List<Object[]> musicTypes;
     private ListView index_music_list;
     private PullToRefreshView pullToRefreshView;
+    private DBManager dbManager;
 
 
     public MusicGuideFragment() {
         // Required empty public constructor
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DBManager.init(getActivity());
+        int localMusicCount = dbManager.getAllLocalAudioMedioCount();
         musicTypes = new ArrayList<Object[]>();
-        Object[] obj1 = {R.drawable.music_icn_local, getResources().getString(R.string.music_local), "（479）"};
+        Object[] obj1 = {R.drawable.music_icn_local, getResources().getString(R.string.music_local), "（"+localMusicCount+"）"};
         musicTypes.add(obj1);
         Object[] obj2 = {R.drawable.music_icn_recent, "最近播放", "（100）"};
         musicTypes.add(obj2);
@@ -53,9 +60,6 @@ public class MusicGuideFragment extends Fragment {
         musicTypes.add(obj5);
         Object[] obj6 = {R.drawable.music_icn_mv, "我的MV", "（6）"};
         musicTypes.add(obj6);
-
-
-
     }
 
     @Override

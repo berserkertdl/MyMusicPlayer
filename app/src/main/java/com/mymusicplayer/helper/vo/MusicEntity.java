@@ -22,6 +22,11 @@ public class MusicEntity implements Serializable {
     private int bookmark;
     private int track;
     private String lrc;
+    private int date_add;
+    private int date_modified;
+    private String display_name;
+    private String mine_type;
+    private int is_delete;
 
     public int getId() {
         return id;
@@ -133,6 +138,46 @@ public class MusicEntity implements Serializable {
 
     public void setLrc(String lrc) {
         this.lrc = lrc;
+    }
+
+    public int getDate_add() {
+        return date_add;
+    }
+
+    public void setDate_add(int date_add) {
+        this.date_add = date_add;
+    }
+
+    public int getDate_modified() {
+        return date_modified;
+    }
+
+    public void setDate_modified(int date_modified) {
+        this.date_modified = date_modified;
+    }
+
+    public String getDisplay_name() {
+        return display_name;
+    }
+
+    public void setDisplay_name(String display_name) {
+        this.display_name = display_name;
+    }
+
+    public String getMine_type() {
+        return mine_type;
+    }
+
+    public void setMine_type(String mine_type) {
+        this.mine_type = mine_type;
+    }
+
+    public int getIs_delete() {
+        return is_delete;
+    }
+
+    public void setIs_delete(int is_delete) {
+        this.is_delete = is_delete;
     }
 
     @Override

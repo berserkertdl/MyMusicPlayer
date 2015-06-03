@@ -44,9 +44,9 @@ public class LocalMusicActivity extends ActionBarActivity {
 
     }
 
-    private void initPages(){
+    private void initPages() {
         TitlePagerAdapter titlePagerAdapter = new TitlePagerAdapter(getSupportFragmentManager());
-        final int icons [] = {R.drawable.tab_icn_song,R.drawable.tab_icn_artist,R.drawable.tab_icn_alb,R.drawable.tab_icn_folder};
+        final int icons[] = {R.drawable.tab_icn_song, R.drawable.tab_icn_artist, R.drawable.tab_icn_alb, R.drawable.tab_icn_folder};
         titlePagerAdapter.setTitles(getResources().getStringArray(R.array.local_music_titles));
         titlePagerAdapter.setIcons(icons);
         titlePagerAdapter.addFragment(new SingleMusicFragment());
