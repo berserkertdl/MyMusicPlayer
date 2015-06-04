@@ -2,7 +2,9 @@ package com.mymusicplayer.ui.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.mymusicplayer.R;
 import com.mymusicplayer.helper.database.SortCursor;
+import com.mymusicplayer.helper.utils.MusicUtil;
 import com.mymusicplayer.helper.vo.SortEntity;
 
 import java.util.ArrayList;
@@ -86,16 +89,29 @@ public class SortCursorAdpter extends SimpleCursorAdapter {
         final int[] from = mFrom;
         int i = 0;
         for(View v : viewHolder.views){
-            String text = cursor.getString(from[i++]);
             if (v instanceof TextView) {
-                setViewText((TextView) v, text);
+                setViewText((TextView) v, cursor.getString(from[i++]));
             } else if (v instanceof ImageView) {
-                setViewImage((ImageView) v, text);
+                setViewImage((ImageView) v, cursor);
             } else {
                 throw new IllegalStateException(v.getClass().getName() + " is not a " +
                         " view that can be bounds by this SimpleCursorAdapter");
             }
         }
+    }
+
+    public void setViewImage(ImageView v, Cursor cursor) {
+        int song_id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+        int album_id = cursor.getInt(cursor.getColumnIndexOrThrow("album_id"));
+        String data = cursor.getString(cursor.getColumnIndexOrThrow("_data"));
+        Bitmap bm =  MusicUtil.getArtwork(mContext, song_id, album_id, data, R.drawable.default_artist_160);
+        if(bm != null){
+            Log.d("setViewImage", "bm is not null==========================");
+            v.setImageBitmap(bm);
+        }else{
+            Log.d("setViewImage","bm is null============================");
+        }
+
     }
 
     /**

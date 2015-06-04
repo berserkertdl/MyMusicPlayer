@@ -12,11 +12,9 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.mymusicplayer.R;
 import com.mymusicplayer.ui.adapters.TitlePagerAdapter;
 import com.mymusicplayer.ui.fragments.localmusic.MusicFolderFragment;
-import com.mymusicplayer.ui.fragments.localmusic.MusicSingerFragment;
-import com.mymusicplayer.ui.fragments.localmusic.MusicSpecialFragment;
+import com.mymusicplayer.ui.fragments.localmusic.MusicArtistFragment;
+import com.mymusicplayer.ui.fragments.localmusic.MusicAlbumFragment;
 import com.mymusicplayer.ui.fragments.localmusic.SingleMusicFragment;
-
-import java.util.List;
 
 public class LocalMusicActivity extends ActionBarActivity {
 
@@ -50,8 +48,8 @@ public class LocalMusicActivity extends ActionBarActivity {
         titlePagerAdapter.setTitles(getResources().getStringArray(R.array.local_music_titles));
         titlePagerAdapter.setIcons(icons);
         titlePagerAdapter.addFragment(new SingleMusicFragment());
-        titlePagerAdapter.addFragment(new MusicSingerFragment());
-        titlePagerAdapter.addFragment(new MusicSpecialFragment());
+        titlePagerAdapter.addFragment(new MusicArtistFragment());
+        titlePagerAdapter.addFragment(new MusicAlbumFragment());
         titlePagerAdapter.addFragment(new MusicFolderFragment());
         pager.setAdapter(titlePagerAdapter);
     }

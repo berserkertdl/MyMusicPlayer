@@ -1,13 +1,10 @@
 package com.mymusicplayer.ui.fragments.localmusic;
 
 import android.app.Activity;
-import android.content.ContentResolver;
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mymusicplayer.R;
+import com.mymusicplayer.activities.LocalMusicListActivity;
 import com.mymusicplayer.helper.database.DBManager;
 import com.mymusicplayer.helper.database.SortCursor;
 import com.mymusicplayer.sliderbar.SideBar;
@@ -35,7 +33,7 @@ import com.mymusicplayer.ui.fragments.dummy.DummyContent;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class MusicSingerFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class MusicAlbumFragment extends Fragment implements AbsListView.OnItemClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,11 +57,9 @@ public class MusicSingerFragment extends Fragment implements AbsListView.OnItemC
      */
     private ListAdapter mAdapter;
 
-    private SideBar sideBar;
-
     // TODO: Rename and change types of parameters
-    public static MusicSingerFragment newInstance(String param1, String param2) {
-        MusicSingerFragment fragment = new MusicSingerFragment();
+    public static MusicAlbumFragment newInstance(String param1, String param2) {
+        MusicAlbumFragment fragment = new MusicAlbumFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -75,7 +71,7 @@ public class MusicSingerFragment extends Fragment implements AbsListView.OnItemC
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public MusicSingerFragment() {
+    public MusicAlbumFragment() {
     }
 
     @Override
@@ -92,15 +88,16 @@ public class MusicSingerFragment extends Fragment implements AbsListView.OnItemC
                 android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
     }
 
-    private ListView localMusicSingerList;
+    private ListView localMusicSpecialList;
+    private SideBar sideBar;
     private SortCursorAdpter cursorAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.local_music_singer, container, false);
+        View view = inflater.inflate(R.layout.local_music_album, container, false);
 
-        localMusicSingerList = (ListView) view.findViewById(R.id.local_music_singer);
+        localMusicSpecialList = (ListView)view.findViewById(R.id.local_music_special);
         sideBar = (SideBar) view.findViewById(R.id.sideBar);
 
         sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
@@ -110,35 +107,44 @@ public class MusicSingerFragment extends Fragment implements AbsListView.OnItemC
                 //该字母首次出现的位置
                 int position = cursorAdapter.getPositionForSection(s.charAt(0));
                 if (position != -1) {
-                    localMusicSingerList.setSelection(position);
+                    localMusicSpecialList.setSelection(position);
                 }
             }
 
         });
-        localMusicSingerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        Log.e("MusicSpecialFragMent","onCreate-process");
+//        ContentResolver contentResolver = getActivity().getContentResolver();
+//        Cursor cursor = contentResolver.query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, new String[]{BaseColumns._ID, MediaStore.Audio.AlbumColumns.ALBUM, MediaStore.Audio.AlbumColumns.NUMBER_OF_SONGS, MediaStore.Audio.AlbumColumns.ARTIST}, null, null, null);
+        SortCursor cursor = new SortCursor(DBManager.getLocalMusicAlbums(), MediaStore.Audio.AudioColumns.ALBUM);
+        cursorAdapter = new SortCursorAdpter(getActivity(),R.layout.local_music_list_item,cursor,
+                new String[]{MediaStore.Audio.AlbumColumns.ALBUM, MediaStore.Audio.AlbumColumns.NUMBER_OF_SONGS, MediaStore.Audio.AlbumColumns.ARTIST}, new int [] {R.id.icon,R.id.title,R.id.subTitle,R.id.midTitle});
+
+//        cursorAdapter = new SortCursorAdpter(getActivity(), R.layout.local_music_list_item, cursor,
+//                new String[]{MediaStore.Audio.AudioColumns.ARTIST, MediaStore.Audio.ArtistColumns.NUMBER_OF_TRACKS}, new int[]{R.id.title, R.id.subTitle});
+
+        getActivity().startManagingCursor(cursor);
+
+        localMusicSpecialList.setAdapter(cursorAdapter);
+
+        localMusicSpecialList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FragmentManager fragmentManager =  getActivity().getSupportFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.layout.fragment_artist_music,new ArtistMusicFragment());
-//                transaction.addToBackStack("right");
-                transaction.commit();
-
+                Object object = localMusicSpecialList.getItemAtPosition(position);
+                SortCursor cursor = (SortCursor) parent.getItemAtPosition(position);
+                int album_id = cursor.getInt(cursor.getColumnIndexOrThrow("album_id"));
+                Intent intent = new Intent(getActivity(), LocalMusicListActivity.class);
+                intent.putExtra("album_id", album_id);
+                startActivity(intent);
             }
 
         });
 
-        Log.e("MusicSingerFragMent", "onCreate-process");
-//        ContentResolver contentResolver = getActivity().getContentResolver();
-//        SortCursor cursor = new SortCursor(contentResolver.query(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI, new String[]{BaseColumns._ID, MediaStore.Audio.ArtistColumns.ARTIST, MediaStore.Audio.ArtistColumns.NUMBER_OF_TRACKS}, null, null, null),MediaStore.Audio.AudioColumns.ARTIST);
-        SortCursor cursor = new SortCursor(DBManager.getAllLocalArtist(), MediaStore.Audio.AudioColumns.ARTIST);
-        cursorAdapter = new SortCursorAdpter(getActivity(), R.layout.local_music_list_item, cursor,
-                new String[]{MediaStore.Audio.AudioColumns.ARTIST, MediaStore.Audio.ArtistColumns.NUMBER_OF_TRACKS}, new int[]{R.id.title, R.id.subTitle});
-        getActivity().startManagingCursor(cursor);
-        localMusicSingerList.setAdapter(cursorAdapter);
-        Log.e("MusicSingerFragMent", "onCreate-OK");
+
+        Log.e("MusicSpecialFragMent", "onCreate--OK");
         return view;
+
     }
 
     @Override

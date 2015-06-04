@@ -1,0 +1,18 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mymusicplayer.ui.fragments.localmusic.LocalMusicActivityFragment">
+
+    <ListView
+        android:id="@+id/local_artist_music"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/sideBar" />
+
+    <com.mymusicplayer.sliderbar.SideBar
+        android:id="@+id/sideBar"
+        android:layout_width="22dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true" />
+
+</RelativeLayout>

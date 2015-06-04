@@ -35,11 +35,12 @@ public class DBManager {
     }
 
     private static void isInit() throws Exception {
-        if(!initialized){
+        if (!initialized) {
             throw new Exception("BDManager must be init first");
         }
     }
-    public static void init(Context context){
+
+    public static void init(Context context) {
         hepler = new DBOpenHelper(context);
         // 因为getWritableDatabase内部调用了mContext.openOrCreateDatabase(mName, 0,
         // mFactory);
@@ -81,8 +82,8 @@ public class DBManager {
         insert(contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, "is_music=1 and duration > 60000", null, MediaStore.Audio.Media.DEFAULT_SORT_ORDER), TABLE_NAME);
     }
 
-    private static void insert(Cursor cursor,String table_name){
-        if(cursor==null||cursor.getColumnCount()==0){
+    private static void insert(Cursor cursor, String table_name) {
+        if (cursor == null || cursor.getColumnCount() == 0) {
             return;
         }
         Object[] objs;
@@ -96,7 +97,7 @@ public class DBManager {
             }
             stringBuffer.append("?,");
         }
-        try{
+        try {
             while (cursor.moveToNext()) {
                 objs = new Object[columCount];
                 for (int i = 0; i < columCount; i++) {
@@ -110,44 +111,51 @@ public class DBManager {
                 db.execSQL("insert into " + table_name + " values( " + stringBuffer + ",0 )", objs);
             }
             db.setTransactionSuccessful();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             db.endTransaction();
         }
-
 
 
     }
 
     public static Cursor getAllAudioMedio() {
-        return db.rawQuery("select * from " + TABLE_NAME +" where is_delete = 0", null);
+        return db.rawQuery("select * from " + TABLE_NAME + " where is_delete = 0", null);
     }
 
-    public static int getAllLocalAudioMedioCount(){
+    public static int getAllLocalAudioMedioCount() {
         Cursor cursor = db.rawQuery("select count(*) from " + TABLE_NAME, null);
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             return cursor.getInt(0);
         }
         return 0;
     }
 
-    public static Cursor getAllLocalArtist(){
-       return db.rawQuery("SELECT count(*) number_of_tracks  ,* FROM " + TABLE_NAME +" where is_delete = 0 group by artist_id ",null);
+    public static Cursor getAllLocalArtist() {
+        return db.rawQuery("SELECT count(*) number_of_tracks  ,* FROM " + TABLE_NAME + " where is_delete = 0 group by artist_id ", null);
     }
 
-    public static Cursor getLocalMusicByArtist(int artist_id){
-        return db.rawQuery("select * from " + TABLE_NAME +" where is_delete = 0 and artist_id = ?", new String []{artist_id+""});
+    public static Cursor getLocalMusicByArtist(int artist_id) {
+        return db.rawQuery("select * from " + TABLE_NAME + " where is_delete = 0 and artist_id = ?", new String[]{artist_id + ""});
+    }
+
+    public static Cursor getLocalMusicByAlbum(int album_id) {
+        return db.rawQuery("select * from " + TABLE_NAME + " where is_delete = 0 and album_id = ?", new String[]{album_id + ""});
+    }
+
+    public static Cursor getLocalMusicAlbums() {
+        return db.rawQuery("SELECT count(*) numsongs  ,* FROM " + TABLE_NAME + " where is_delete = 0 group by album_id ", null);
     }
 
 
-    public static void destory(){
-        if(db!=null){
+    public static void destory() {
+        if (db != null) {
             db.close();
             db = null;
         }
 
-        if(hepler!=null){
+        if (hepler != null) {
             hepler.close();
             hepler = null;
         }

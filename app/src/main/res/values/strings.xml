@@ -35,6 +35,7 @@
         <item>专辑</item>
         <item>文件夹</item>
     </string-array>
+    <string name="title_activity_local_artist_music">LocalArtistMusicActivity</string>
 
 
 </resources>
