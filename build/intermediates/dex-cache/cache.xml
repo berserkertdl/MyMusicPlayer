@@ -2,32 +2,39 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
-        <dex dex="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\app\build\intermediates\pre-dexed\debug\library-2.4.0-dd460f45d27a359687729c3c169358b1eda3100b.jar" />
-    </item>
-    <item
         jar="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\app\build\intermediates\exploded-aar\MyMusicPlayer\library\unspecified\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="bcda691276cd4b83ff3ec59ea78c0c509f9340d9">
+        sha1="18e6a1a7cc1fd212d3ba8dba2e2aa1538508d75d">
         <dex dex="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\app\build\intermediates\pre-dexed\debug\classes-372aa93b1c9a289946e4550df280d09b1259d2ae.jar" />
     </item>
     <item
         jar="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\app\build\intermediates\exploded-aar\MyMusicPlayer\contextmenu\unspecified\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="25380643621c39fbf35ce928aa1b6eb16749b753">
+        sha1="5c8dddbff249fde321f07a8a02391b498af91aad">
         <dex dex="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\app\build\intermediates\pre-dexed\debug\classes-3a3f5860964c64144429451466c287e6779268ad.jar" />
     </item>
     <item
         jar="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\app\build\intermediates\exploded-aar\MyMusicPlayer\pageslidertabtrip\unspecified\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="b843c2704ed27699ee4ae0e674f31f462e5c324f">
+        sha1="88a5160d5eaa21feb6e83b56446483db65412b50">
         <dex dex="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\app\build\intermediates\pre-dexed\debug\classes-9c0b6e6dd5ab0a0e2037bf28bd8bc73d4b496fb2.jar" />
+    </item>
+    <item
+        jar="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.1\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c95ba8152923e4872e86a82cfcba9a51c0214328">
+        <dex dex="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\app\build\intermediates\pre-dexed\debug\classes-2ef2c5a184351e550c9c9148ca0a861703cecddc.jar" />
+    </item>
+    <item
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\app\build\intermediates\pre-dexed\debug\library-2.4.0-dd460f45d27a359687729c3c169358b1eda3100b.jar" />
     </item>
     <item
         jar="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.1\libs\internal_impl-22.1.1.jar"
@@ -49,13 +56,6 @@
         revision="21.1.2"
         sha1="a3ff3c506644c820eb2bdf06e8339f72be578551">
         <dex dex="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\app\build\intermediates\pre-dexed\debug\classes-b23f212b7746678ded56539a9b8d7d24396c1c53.jar" />
-    </item>
-    <item
-        jar="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.1\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="c95ba8152923e4872e86a82cfcba9a51c0214328">
-        <dex dex="E:\project\java\android\AndroidStudioProjects\MyMusicPlayer\app\build\intermediates\pre-dexed\debug\classes-2ef2c5a184351e550c9c9148ca0a861703cecddc.jar" />
     </item>
 
 </items>
