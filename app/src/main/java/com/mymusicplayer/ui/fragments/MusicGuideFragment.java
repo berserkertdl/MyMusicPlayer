@@ -45,27 +45,49 @@ public class MusicGuideFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DBManager.init(getActivity());
-        int localMusicCount = dbManager.getAllLocalAudioMedioCount();
         musicTypes = new ArrayList<Object[]>();
+//        Object[] obj1 = {R.drawable.music_icn_local, getResources().getString(R.string.music_local), "（0）"};
+//        musicTypes.add(obj1);
+//        Object[] obj2 = {R.drawable.music_icn_recent, "最近播放", "（0）"};
+//        musicTypes.add(obj2);
+//        Object[] obj3 = {R.drawable.music_icn_dld, "下载管理", "（0）"};
+//        musicTypes.add(obj3);
+//        Object[] obj4 = {R.drawable.music_icn_artist, "我的歌手", "（0）"};
+//        musicTypes.add(obj4);
+//        Object[] obj5 = {R.drawable.music_icn_dj, "我的电台", "（0）"};
+//        musicTypes.add(obj5);
+//        Object[] obj6 = {R.drawable.music_icn_mv, "我的MV", "（0）"};
+//        musicTypes.add(obj6);
+
+
+
+    }
+
+    private List<Object[]> getListData(){
+        DBManager.init(getActivity());
+        musicTypes = new ArrayList<Object[]>();
+        int localMusicCount = dbManager.getAllLocalAudioMedioCount();
         Object[] obj1 = {R.drawable.music_icn_local, getResources().getString(R.string.music_local), "（"+localMusicCount+"）"};
         musicTypes.add(obj1);
-        Object[] obj2 = {R.drawable.music_icn_recent, "最近播放", "（100）"};
+        Object[] obj2 = {R.drawable.music_icn_recent, getResources().getString(R.string.music_recent), "（0）"};
         musicTypes.add(obj2);
-        Object[] obj3 = {R.drawable.music_icn_dld, "下载管理", "（704）"};
+        Object[] obj3 = {R.drawable.music_icn_dld, getResources().getString(R.string.music_dld), "（0）"};
         musicTypes.add(obj3);
-        Object[] obj4 = {R.drawable.music_icn_artist, "我的歌手", "（0）"};
+        Object[] obj4 = {R.drawable.music_icn_artist, getResources().getString(R.string.music_artist), "（0）"};
         musicTypes.add(obj4);
-        Object[] obj5 = {R.drawable.music_icn_dj, "我的电台", "（2）"};
+        Object[] obj5 = {R.drawable.music_icn_dj, getResources().getString(R.string.music_dj), "（0）"};
         musicTypes.add(obj5);
-        Object[] obj6 = {R.drawable.music_icn_mv, "我的MV", "（6）"};
+        Object[] obj6 = {R.drawable.music_icn_mv, getResources().getString(R.string.music_mv), "（0）"};
         musicTypes.add(obj6);
+        return musicTypes;
     }
+
+    private MusicGudieAdpter musicGudieAdpter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        MusicGudieAdpter musicGudieAdpter = new MusicGudieAdpter(getActivity(),musicTypes);
+        musicGudieAdpter = new MusicGudieAdpter(getActivity(),musicTypes);
 
         if(index_music_list!=null){
             index_music_list.setAdapter(musicGudieAdpter);
@@ -81,14 +103,17 @@ public class MusicGuideFragment extends Fragment {
         pullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                pullToRefreshView.postDelayed(new Runnable() {
+                pullToRefreshView.post(new Runnable() {
                     @Override
                     public void run() {
+                        musicGudieAdpter.setMusicTypes(getListData());
+                        musicGudieAdpter.notifyDataSetChanged();
                         pullToRefreshView.setRefreshing(false);
                     }
-                }, 2000);
+                });
             }
         });
+        pullToRefreshView.setRefreshing(true,true);
     }
 
     @Override

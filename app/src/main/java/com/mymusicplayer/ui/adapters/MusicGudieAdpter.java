@@ -31,6 +31,14 @@ public class MusicGudieAdpter extends BaseAdapter{
 
     }
 
+    public List<Object[]> getMusicTypes() {
+        return musicTypes;
+    }
+
+    public void setMusicTypes(List<Object[]> musicTypes) {
+        this.musicTypes = musicTypes;
+    }
+
     public MusicGudieAdpter(Context context, List<Object[]> musicTypes) {
         this.context = context;
         this.musicTypes = musicTypes;

@@ -26,6 +26,12 @@
             android:name=".activities.LocalMusicListActivity"
             android:label="@string/title_activity_local_artist_music" >
         </activity>
+
+        <service
+            android:name=".services.PlayerService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

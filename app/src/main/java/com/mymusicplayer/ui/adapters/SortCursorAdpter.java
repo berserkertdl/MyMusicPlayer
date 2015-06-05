@@ -34,6 +34,14 @@ public class SortCursorAdpter extends SimpleCursorAdapter {
         this.mLayout = layout;
     }
 
+    public SortCursor getmSortCursor() {
+        return mSortCursor;
+    }
+
+    public void setmSortCursor(SortCursor mSortCursor) {
+        this.mSortCursor = mSortCursor;
+    }
+
     @Override
     public View getView(int position, View view, ViewGroup parent) {
 

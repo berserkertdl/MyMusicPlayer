@@ -1,7 +1,6 @@
 package com.mymusicplayer.ui.fragments.localmusic;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -9,11 +8,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.mymusicplayer.R;
 import com.mymusicplayer.helper.database.DBManager;
 import com.mymusicplayer.helper.database.SortCursor;
+import com.mymusicplayer.services.PlayerService;
 import com.mymusicplayer.sliderbar.SideBar;
 import com.mymusicplayer.ui.adapters.SortCursorAdpter;
 
@@ -25,7 +26,7 @@ public class LocalMusicActivityFragment extends Fragment {
     public LocalMusicActivityFragment() {
     }
 
-    private ListView localArtistMusicList;
+    private ListView localMusicList;
     private SideBar sideBar;
     private SortCursorAdpter cursorAdapter;
 
@@ -37,7 +38,7 @@ public class LocalMusicActivityFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         int artist_id = intent.getIntExtra("artist_id", 0);
         int album_id = intent.getIntExtra("album_id", 0);
-        localArtistMusicList = (ListView) view.findViewById(R.id.local_artist_music);
+        localMusicList = (ListView) view.findViewById(R.id.local_artist_music);
         sideBar = (SideBar) view.findViewById(R.id.sideBar);
 
         sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
@@ -47,7 +48,7 @@ public class LocalMusicActivityFragment extends Fragment {
                 //该字母首次出现的位置
                 int position = cursorAdapter.getPositionForSection(s.charAt(0));
                 if (position != -1) {
-                    localArtistMusicList.setSelection(position);
+                    localMusicList.setSelection(position);
                 }
             }
 
@@ -62,7 +63,17 @@ public class LocalMusicActivityFragment extends Fragment {
         cursorAdapter = new SortCursorAdpter(getActivity(), R.layout.local_music_list_item, cursor,
                 new String[]{MediaStore.Audio.Media.TITLE,MediaStore.Audio.AudioColumns.ARTIST,MediaStore.Audio.AudioColumns.ALBUM}, new int [] {R.id.title,R.id.subTitle,R.id.midTitle});
         getActivity().startManagingCursor(cursor);
-        localArtistMusicList.setAdapter(cursorAdapter);
+        localMusicList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SortCursor cursor = (SortCursor) parent.getItemAtPosition(position);
+                String url = cursor.getString(cursor.getColumnIndexOrThrow("_data"));
+                Intent intent = new Intent(getActivity(), PlayerService.class);
+                intent.putExtra("url", url);
+                getActivity().startService(intent);
+            }
+        });
+        localMusicList.setAdapter(cursorAdapter);
         return view;
     }
 }

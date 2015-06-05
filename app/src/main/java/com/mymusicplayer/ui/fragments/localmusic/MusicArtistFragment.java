@@ -117,7 +117,6 @@ public class MusicArtistFragment extends Fragment implements AbsListView.OnItemC
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                 Object object =  localMusicSingerList.getItemAtPosition(position);
                 SortCursor cursor = (SortCursor)parent.getItemAtPosition(position);
                 int artistId = cursor.getInt(cursor.getColumnIndexOrThrow("artist_id"));
                 Intent intent = new Intent(getActivity(), LocalMusicListActivity.class);

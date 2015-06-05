@@ -1,7 +1,9 @@
 package com.mymusicplayer.ui.fragments.localmusic;
 
 import android.app.Activity;
+import android.app.IntentService;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.BaseColumns;
@@ -20,8 +22,11 @@ import android.widget.TextView;
 import com.mymusicplayer.R;
 
 import com.mymusicplayer.helper.database.DBManager;
+import com.mymusicplayer.helper.database.SortCursor;
 import com.mymusicplayer.helper.utils.MusicUtil;
 import com.mymusicplayer.helper.vo.MusicEntity;
+import com.mymusicplayer.services.PlayerService;
+import com.mymusicplayer.ui.adapters.SortCursorAdpter;
 import com.mymusicplayer.ui.fragments.dummy.DummyContent;
 
 import java.util.List;
@@ -92,18 +97,47 @@ public class SingleMusicFragment extends Fragment implements AbsListView.OnItemC
 //                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
     }
 
+    private SortCursorAdpter cursorAdapter;
+    private SortCursor cursor = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.local_single_music, container, false);
         localMusicList = (ListView) view.findViewById(R.id.local_music_list);
-        ContentResolver contentResolver = getActivity().getContentResolver();
-//        Cursor cursor = contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, new String[]{BaseColumns._ID, MediaStore.Audio.AudioColumns.TITLE,MediaStore.Audio.AudioColumns.ARTIST,MediaStore.Audio.AudioColumns.ALBUM}, null, null, null);
-        Cursor cursor = DBManager.getAllAudioMedio();
-        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.local_music_list_item, cursor,
+
+//        cursor = new SortCursor(DBManager.getAllAudioMedio(),MediaStore.Audio.AudioColumns.TITLE);
+        cursorAdapter = new SortCursorAdpter(getActivity(), R.layout.local_music_list_item, cursor,
                 new String[]{MediaStore.Audio.Media.TITLE, MediaStore.Audio.AudioColumns.ARTIST, MediaStore.Audio.AudioColumns.ALBUM}, new int[]{R.id.title, R.id.subTitle, R.id.midTitle});
         getActivity().startManagingCursor(cursor);
         localMusicList.setAdapter(cursorAdapter);
+        localMusicList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Cursor cursor = (Cursor) parent.getItemAtPosition(position);
+                String url = cursor.getString(cursor.getColumnIndexOrThrow("_data"));
+                Intent intent = new Intent(getActivity(), PlayerService.class);
+                intent.putExtra("url", url);
+                getActivity().startService(intent);
+            }
+
+        });
+
+        cursor = new SortCursor(DBManager.getAllAudioMedio(),MediaStore.Audio.AudioColumns.TITLE);
+        cursorAdapter.setmSortCursor(cursor);
+        cursorAdapter.notifyDataSetChanged();
+
+        new Thread(){
+            @Override
+            public void run() {
+                SortCursor cursor = new SortCursor(DBManager.getAllAudioMedio(),MediaStore.Audio.AudioColumns.TITLE);
+                cursorAdapter.setmSortCursor(cursor);
+                cursorAdapter.notifyDataSetChanged();
+                getActivity().startManagingCursor(cursor);
+            }
+
+        }.start();
+
         return view;
     }
 
