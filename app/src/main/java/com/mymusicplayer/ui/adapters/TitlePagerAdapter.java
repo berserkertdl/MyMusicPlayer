@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
+import android.view.ViewGroup;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -26,7 +27,7 @@ public class TitlePagerAdapter extends FragmentPagerAdapter implements PagerSlid
 
     public void addFragment(Fragment fragment){
         if(fragment==null){
-            Log.e("PagerAdapter","fragment is null");
+//            Log.e("PagerAdapter","fragment is null");
             return;
         }
         pages.add(fragment);
@@ -60,4 +61,28 @@ public class TitlePagerAdapter extends FragmentPagerAdapter implements PagerSlid
     public int getPageIconResId(int position) {
         return icons[position];
     }
+
+
+    @Override
+    public void setPrimaryItem(ViewGroup container, int position, Object object) {
+        super.setPrimaryItem(container, position, object);
+//        Log.e("TitlePagerAdapter", "setPrimaryItem");
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+//        Log.e("TitlePagerAdapter", "instantiateItem");
+        return super.instantiateItem(container, position);
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+
+//        Log.e("TitlePagerAdapter", "destroyItem");
+//        super.destroyItem(container, position, object);
+    }
+
+
+
+
 }

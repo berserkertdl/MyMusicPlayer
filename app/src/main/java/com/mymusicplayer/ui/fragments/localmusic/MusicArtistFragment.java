@@ -3,6 +3,8 @@ package com.mymusicplayer.ui.fragments.localmusic;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -22,6 +24,7 @@ import com.mymusicplayer.helper.database.DBManager;
 import com.mymusicplayer.helper.database.SortCursor;
 import com.mymusicplayer.sliderbar.SideBar;
 import com.mymusicplayer.ui.adapters.SortCursorAdpter;
+import com.mymusicplayer.ui.fragments.BaseFragment;
 import com.mymusicplayer.ui.fragments.dummy.DummyContent;
 
 /**
@@ -33,7 +36,7 @@ import com.mymusicplayer.ui.fragments.dummy.DummyContent;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class MusicArtistFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class MusicArtistFragment extends BaseFragment implements AbsListView.OnItemClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -92,68 +95,85 @@ public class MusicArtistFragment extends Fragment implements AbsListView.OnItemC
 
     private ListView localMusicSingerList;
     private SortCursorAdpter cursorAdapter;
+    private Handler handler;
+    private View mFragmentView;
+
+    /**
+     * 标志位，标志已经初始化完成
+     */
+    private boolean isPrepared;
+    /**
+     * 是否已被加载过一次，第二次就不再去请求数据了
+     */
+    private boolean mHasLoadedOnce;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.local_music_artist, container, false);
 
-        localMusicSingerList = (ListView) view.findViewById(R.id.local_music_singer);
-        sideBar = (SideBar) view.findViewById(R.id.sideBar);
+        Log.e("MusicArtistFragment", "onCreateView");
+        if (mFragmentView == null) {
+            mFragmentView = inflater.inflate(R.layout.local_music_artist, container, false);
+            localMusicSingerList = (ListView) mFragmentView.findViewById(R.id.local_music_singer);
+            sideBar = (SideBar) mFragmentView.findViewById(R.id.sideBar);
+            handler = new ArtistHandler();
 
-        sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
-            @Override
-            public void onTouchingLetterChanged(String s) {
-                Log.e("OnTouchingLetterChanged", s);
-                //该字母首次出现的位置
-                int position = cursorAdapter.getPositionForSection(s.charAt(0));
-                if (position != -1) {
-                    localMusicSingerList.setSelection(position);
+            localMusicSingerList.setOnItemClickListener(this);
+            sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
+                @Override
+                public void onTouchingLetterChanged(String s) {
+                    Log.e("OnTouchingLetterChanged", s);
+                    //该字母首次出现的位置
+                    int position = cursorAdapter.getPositionForSection(s.charAt(0));
+                    if (position != -1) {
+                        localMusicSingerList.setSelection(position);
+                    }
                 }
-            }
 
-        });
-        localMusicSingerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SortCursor cursor = (SortCursor)parent.getItemAtPosition(position);
-                int artistId = cursor.getInt(cursor.getColumnIndexOrThrow("artist_id"));
-                Intent intent = new Intent(getActivity(), LocalMusicListActivity.class);
-                intent.putExtra("artist_id",artistId);
-                startActivity(intent);
-            }
-
-        });
-
-        Log.e("MusicSingerFragMent", "onCreate-process");
-//        ContentResolver contentResolver = getActivity().getContentResolver();
-//        SortCursor cursor = new SortCursor(contentResolver.query(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI, new String[]{BaseColumns._ID, MediaStore.Audio.ArtistColumns.ARTIST, MediaStore.Audio.ArtistColumns.NUMBER_OF_TRACKS}, null, null, null),MediaStore.Audio.AudioColumns.ARTIST);
-        SortCursor cursor = new SortCursor(DBManager.getAllLocalArtist(), MediaStore.Audio.AudioColumns.ARTIST);
-        cursorAdapter = new SortCursorAdpter(getActivity(), R.layout.local_music_list_item, cursor,
-                new String[]{MediaStore.Audio.AudioColumns.ARTIST, MediaStore.Audio.ArtistColumns.NUMBER_OF_TRACKS}, new int[]{R.id.icon,R.id.title, R.id.subTitle});
-        getActivity().startManagingCursor(cursor);
-        localMusicSingerList.setAdapter(cursorAdapter);
-        Log.e("MusicSingerFragMent", "onCreate-OK");
-        return view;
+            });
+            isPrepared = true;
+            lazyLoad();
+        }
+        //因为共用一个Fragment视图，所以当前这个视图已被加载到Activity中，必须先清除后再加入Activity
+        ViewGroup parent = (ViewGroup) mFragmentView.getParent();
+        if (parent != null) {
+            parent.removeView(mFragmentView);
+        }
+        return mFragmentView;
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-//            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+    protected void lazyLoad() {
+        Log.e("MusicArtistFragment", "lazyLoading");
+        if (!isPrepared || !isVisible || mHasLoadedOnce) {
+            return;
+        }
+        Log.e("MusicArtistFragment", "lazyLoad");
+        mHasLoadedOnce = true;
+        new Thread() {
+            @Override
+            public void run() {
+                SortCursor cursor = new SortCursor(DBManager.getAllLocalArtist(), MediaStore.Audio.AudioColumns.ARTIST);
+                Message message = handler.obtainMessage();
+                message.obj = cursor;
+                handler.sendMessage(message);
+            }
+        }.start();
+
+    }
+
+    class ArtistHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            SortCursor cursor = (SortCursor) msg.obj;
+            cursorAdapter = new SortCursorAdpter(getActivity(), R.layout.local_music_list_item, cursor,
+                    new String[]{MediaStore.Audio.AudioColumns.ARTIST, MediaStore.Audio.ArtistColumns.NUMBER_OF_TRACKS}, new int[]{R.id.icon, R.id.title, R.id.subTitle});
+            getActivity().startManagingCursor(cursor);
+            localMusicSingerList.setAdapter(cursorAdapter);
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -162,19 +182,12 @@ public class MusicArtistFragment extends Fragment implements AbsListView.OnItemC
             // fragment is attached to one) that an item has been selected.
             mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
         }
-    }
 
-    /**
-     * The default content for this Fragment has a TextView that is shown when
-     * the list is empty. If you would like to change the text, call this method
-     * to supply the text it should use.
-     */
-    public void setEmptyText(CharSequence emptyText) {
-        View emptyView = mListView.getEmptyView();
-
-        if (emptyView instanceof TextView) {
-            ((TextView) emptyView).setText(emptyText);
-        }
+        SortCursor cursor = (SortCursor) parent.getItemAtPosition(position);
+        int artistId = cursor.getInt(cursor.getColumnIndexOrThrow("artist_id"));
+        Intent intent = new Intent(getActivity(), LocalMusicListActivity.class);
+        intent.putExtra("artist_id", artistId);
+        startActivity(intent);
     }
 
     /**

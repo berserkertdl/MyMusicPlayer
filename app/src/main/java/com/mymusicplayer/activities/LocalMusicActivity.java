@@ -39,7 +39,6 @@ public class LocalMusicActivity extends ActionBarActivity {
         tabs.setIndicatorHeight(6);
         tabs.setViewPager(pager);
 
-
     }
 
     private void initPages() {
@@ -52,6 +51,11 @@ public class LocalMusicActivity extends ActionBarActivity {
         titlePagerAdapter.addFragment(new MusicAlbumFragment());
         titlePagerAdapter.addFragment(new MusicFolderFragment());
         pager.setAdapter(titlePagerAdapter);
+        //设置ViewPager初始化时哪个Fragment页面
+        pager.setCurrentItem(0);
+        //设置ViewPager初始化加载的Fragment页面数,如果此处不指定，默认只加载相邻页
+        pager.setOffscreenPageLimit(1);
+
     }
 
 
