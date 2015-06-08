@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.mymusicplayer.R;
 import com.mymusicplayer.helper.database.SortCursor;
+import com.mymusicplayer.helper.utils.ImageUtil;
 import com.mymusicplayer.helper.utils.MusicUtil;
 import com.mymusicplayer.helper.vo.SortEntity;
 
@@ -115,7 +116,7 @@ public class SortCursorAdpter extends SimpleCursorAdapter {
         Bitmap bm =  MusicUtil.getArtwork(mContext, song_id, album_id, data, R.drawable.default_artist_160);
         if(bm != null){
             Log.d("setViewImage", "bm is not null==========================");
-            v.setImageBitmap(bm);
+            v.setImageBitmap(ImageUtil.zoomImg(bm,38,38));
         }else{
             Log.d("setViewImage","bm is null============================");
         }

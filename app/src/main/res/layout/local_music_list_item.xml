@@ -18,8 +18,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
             android:duplicateParentState="true"
-            android:maxHeight="32dp"
-            android:maxWidth="32dp"
+            android:maxHeight="38dp"
+            android:maxWidth="38dp"
             android:paddingBottom="4dp"
             android:paddingTop="4dp" />
 
