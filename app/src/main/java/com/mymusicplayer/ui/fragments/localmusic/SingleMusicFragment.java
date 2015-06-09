@@ -102,11 +102,11 @@ public class SingleMusicFragment extends BaseFragment implements AbsListView.OnI
     private ListView localMusicList;
     private int mCurItem = -1;
     /**
-     * 标志位，标志已经初始化完成
+     *
      */
     private boolean isPrepared;
     /**
-     * 是否已被加载过一次，第二次就不再去请求数据了
+     *
      */
     private boolean mHasLoadedOnce;
     private SideBar sideBar;
@@ -127,7 +127,7 @@ public class SingleMusicFragment extends BaseFragment implements AbsListView.OnI
                 @Override
                 public void onTouchingLetterChanged(String s) {
                     Log.e("OnTouchingLetterChanged", s);
-                    //该字母首次出现的位置
+                    //
                     int position = cursorAdapter.getPositionForSection(s.charAt(0));
                     if (position != -1) {
                         localMusicList.setSelection(position);
@@ -138,7 +138,7 @@ public class SingleMusicFragment extends BaseFragment implements AbsListView.OnI
             isPrepared = true;
             lazyLoad();
         }
-        //因为共用一个Fragment视图，所以当前这个视图已被加载到Activity中，必须先清除后再加入Activity
+        //
         ViewGroup parent = (ViewGroup) mFragmentView.getParent();
         if (parent != null) {
             parent.removeView(mFragmentView);

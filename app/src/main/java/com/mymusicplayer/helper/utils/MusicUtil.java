@@ -99,10 +99,10 @@ public class MusicUtil {
     }
 
 
-    public static Bitmap getArtwork(Context context, int song_id, int album_id, String data,int defalutImage) {
+    public static Bitmap getArtwork(Context context, int song_id, int album_id, String data/**,int defalutImage*/) {
 
         if(data!=null&&!"".equals(data)){
-            if(data.toLowerCase().indexOf("/storage/sdcard/")!=-1){
+            if(data.toLowerCase().indexOf("/storage/sdcard")!=-1){
                 defaultSrc = "external";
             }
         }
@@ -116,9 +116,10 @@ public class MusicUtil {
                     return bm;
                 }
             }
-            if (defalutImage!=0) {
-                return getDefaultArtwork(context,defalutImage);
-            }
+            //设置默认图片
+//            if (defalutImage!=0) {
+//                return getDefaultArtwork(context,defalutImage);
+//            }
             return null;
         }
         ContentResolver res = context.getContentResolver();
@@ -135,12 +136,13 @@ public class MusicUtil {
                 if (bm != null) {
                     if (bm.getConfig() == null) {
                         bm = bm.copy(Bitmap.Config.RGB_565, false);
-                        if (bm == null && defalutImage!=0) {
-                            return getDefaultArtwork(context,defalutImage);
-                        }
+                        //设置默认图片
+//                        if (bm == null && defalutImage!=0) {
+//                            return getDefaultArtwork(context,defalutImage);
+//                        }
                     }
-                } else if (defalutImage!=0) {
-                    bm = getDefaultArtwork(context,defalutImage);
+//                } else if (defalutImage!=0) {
+//                    bm = getDefaultArtwork(context,defalutImage);
                 }
                 return bm;
             } finally {

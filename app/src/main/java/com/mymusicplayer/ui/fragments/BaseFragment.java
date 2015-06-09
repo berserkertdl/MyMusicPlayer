@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
 public abstract class BaseFragment extends Fragment {
 
     /**
-     * Fragment 当前状态是否可见
+     * Fragment
      */
     protected boolean isVisible;
 
@@ -25,14 +25,14 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
-     * 可见
+     *
      */
     protected void onVisible() {
         lazyLoad();
     }
 
     /**
-     * 不可见
+     *
      */
     protected void onInvisible() {
 

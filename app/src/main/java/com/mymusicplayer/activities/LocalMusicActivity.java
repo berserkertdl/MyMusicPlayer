@@ -51,10 +51,11 @@ public class LocalMusicActivity extends ActionBarActivity {
         titlePagerAdapter.addFragment(new MusicAlbumFragment());
         titlePagerAdapter.addFragment(new MusicFolderFragment());
         pager.setAdapter(titlePagerAdapter);
-        //ÉèÖÃViewPager³õÊ¼»¯Ê±ÄÄ¸öFragmentÒ³Ãæ
+        //è®¾ç½®ViewPageråˆå§‹åŒ–æ—¶å“ªä¸ªFragmenté¡µé¢
         pager.setCurrentItem(0);
-        //ÉèÖÃViewPager³õÊ¼»¯¼ÓÔØµÄFragmentÒ³ÃæÊı,Èç¹û´Ë´¦²»Ö¸¶¨£¬Ä¬ÈÏÖ»¼ÓÔØÏàÁÚÒ³
+        //è®¾ç½®ViewPageråˆå§‹åŒ–åŠ è½½çš„Fragmenté¡µé¢æ•°,å¦‚æœæ­¤å¤„ä¸æŒ‡å®šï¼Œé»˜è®¤åªåŠ è½½ç›¸é‚»é¡µ
         pager.setOffscreenPageLimit(1);
+
 
     }
 

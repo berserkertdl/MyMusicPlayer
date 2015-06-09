@@ -23,3 +23,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.nineoldandroids:library:2.4.0'
 }
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}

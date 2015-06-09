@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 
 import com.contextmenu.ContextMenuDialogFragment;
@@ -49,7 +50,7 @@ public class IndexActivity extends ActionBarActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private ImageButton discover_bar, music_bar, friends_bar, search_bar, menu_bar;
+    private ImageView discover_bar, music_bar, friends_bar, search_bar, menu_bar;
 
     private View discover_view, music_view, friends_view;
 
@@ -143,9 +144,9 @@ public class IndexActivity extends ActionBarActivity {
     private void initComponet() {
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        discover_bar = (ImageButton) findViewById(R.id.actionBar_discover);
-        music_bar = (ImageButton) findViewById(R.id.actionBar_music);
-        friends_bar = (ImageButton) findViewById(R.id.actionBar_friends);
+        discover_bar = (ImageView) findViewById(R.id.actionBar_discover);
+        music_bar = (ImageView) findViewById(R.id.actionBar_music);
+        friends_bar = (ImageView) findViewById(R.id.actionBar_friends);
         search_bar = (ImageButton) findViewById(R.id.actionBar_search);
 
         PageChangListener pageChangeListener = new PageChangListener();

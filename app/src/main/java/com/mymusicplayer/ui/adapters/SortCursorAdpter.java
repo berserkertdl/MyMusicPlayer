@@ -1,5 +1,6 @@
 package com.mymusicplayer.ui.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -11,10 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mymusicplayer.Constants;
 import com.mymusicplayer.R;
+import com.mymusicplayer.cache.ImageInfo;
+import com.mymusicplayer.cache.ImageProvider;
 import com.mymusicplayer.helper.database.SortCursor;
-import com.mymusicplayer.helper.utils.ImageUtil;
 import com.mymusicplayer.helper.utils.MusicUtil;
+import com.mymusicplayer.helper.utils.ToolFor9Ge;
 import com.mymusicplayer.helper.vo.SortEntity;
 
 import java.util.ArrayList;
@@ -28,11 +32,13 @@ public class SortCursorAdpter extends SimpleCursorAdapter {
     private SortCursor mSortCursor;
 
     private int mLayout;
+    private ImageProvider mImageProvider;
 
     public SortCursorAdpter(Context context, int layout, SortCursor c, String[] from, int[] to) {
         super(context, layout, c, from, to);
         this.mSortCursor = c;
         this.mLayout = layout;
+        mImageProvider = ImageProvider.getInstance( (Activity) mContext );
     }
 
     public SortCursor getmSortCursor() {
@@ -110,16 +116,27 @@ public class SortCursorAdpter extends SimpleCursorAdapter {
     }
 
     public void setViewImage(ImageView v, Cursor cursor) {
-        int song_id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
-        int album_id = cursor.getInt(cursor.getColumnIndexOrThrow("album_id"));
-        String data = cursor.getString(cursor.getColumnIndexOrThrow("_data"));
-        Bitmap bm =  MusicUtil.getArtwork(mContext, song_id, album_id, data, R.drawable.default_artist_160);
-        if(bm != null){
+        String album_id = cursor.getInt(cursor.getColumnIndexOrThrow("album_id"))+"";
+        String artist = cursor.getString(cursor.getColumnIndexOrThrow("artist"));
+        String album = cursor.getString(cursor.getColumnIndexOrThrow("album"));
+        String url = cursor.getString(cursor.getColumnIndexOrThrow("_data"));
+
+        ImageInfo mInfo = new ImageInfo();
+        mInfo.type = Constants.TYPE_ALBUM;
+        mInfo.size =  Constants.SIZE_THUMB;
+        mInfo.source =  Constants.SRC_FIRST_AVAILABLE;
+        mInfo.data = new String[]{ album_id , artist, album, url};
+        mImageProvider.loadImage( v, mInfo );
+//        v.setImageResource(R.drawable.default_artist_160);
+//        Bitmap bm =  MusicUtil.getArtwork(mContext, song_id, album_id, data);
+       /* if(bm != null){
             Log.d("setViewImage", "bm is not null==========================");
-            v.setImageBitmap(ImageUtil.zoomImg(bm,38,38));
+            v.setImageBitmap(ToolFor9Ge.zoomImg(bm, 32, 32) );
         }else{
+            //设置默认图片
+            v.setImageResource(R.drawable.default_artist_160);
             Log.d("setViewImage","bm is null============================");
-        }
+        }*/
 
     }
 

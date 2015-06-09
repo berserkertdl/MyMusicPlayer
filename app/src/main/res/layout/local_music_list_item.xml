@@ -17,9 +17,11 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
+            android:layout_alignParentLeft="true"
             android:duplicateParentState="true"
             android:maxHeight="38dp"
             android:maxWidth="38dp"
+            android:scaleType="centerCrop"
             android:paddingBottom="4dp"
             android:paddingTop="4dp" />
 

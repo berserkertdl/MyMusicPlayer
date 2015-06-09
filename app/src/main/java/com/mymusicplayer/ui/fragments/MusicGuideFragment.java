@@ -103,14 +103,14 @@ public class MusicGuideFragment extends Fragment {
         pullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                pullToRefreshView.post(new Runnable() {
+                pullToRefreshView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         musicGudieAdpter.setMusicTypes(getListData());
                         musicGudieAdpter.notifyDataSetChanged();
                         pullToRefreshView.setRefreshing(false);
                     }
-                });
+                },1000);
             }
         });
         pullToRefreshView.setRefreshing(true,true);

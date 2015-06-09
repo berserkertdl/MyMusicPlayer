@@ -14,30 +14,58 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize">
 
-        <!--<ImageButton-->
-            <!--android:id="@+id/actionBar_discover"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:background="@drawable/actionbar_discover_background"-->
-            <!--android:clickable="true" />-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="8">
 
-        <!--<ImageButton-->
-            <!--android:id="@+id/actionBar_music"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_toRightOf="@id/actionBar_discover"-->
-            <!--android:background="@drawable/actionbar_music_background" />-->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:background="@drawable/holo_selector">
 
-        <!--<ImageButton-->
-            <!--android:id="@+id/actionBar_friends"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_toRightOf="@id/actionBar_music"-->
-            <!--android:background="@drawable/actionbar_friends_selector" />-->
+                <ImageView
+                    android:id="@+id/actionBar_discover"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:src="@drawable/actionbar_discover_selected" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:background="@drawable/holo_selector">
+
+                <ImageView
+                    android:id="@+id/actionBar_music"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/actionbar_music_normal" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:background="@drawable/holo_selector">
+
+                <ImageView
+                    android:id="@+id/actionBar_friends"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/actionbar_friends_normal" />
+            </FrameLayout>
+        </LinearLayout>
 
 
     </android.support.v7.widget.Toolbar>
@@ -49,7 +77,6 @@
         android:layout_alignParentBottom="true"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize" />
-
 
     <!--<RelativeLayout-->
     <!--android:layout_width="match_parent"-->
