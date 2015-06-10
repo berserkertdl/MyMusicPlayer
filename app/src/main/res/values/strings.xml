@@ -37,5 +37,12 @@
     </string-array>
     <string name="title_activity_local_artist_music">LocalArtistMusicActivity</string>
 
+    <!--menu-->
+    <string name="scan_music">扫描歌曲</string>
+    <string name="manage_music">歌曲管理</string>
+    <string name="sort_style">排序方式</string>
+    <string name="get_web_img">一键获取封面歌词</string>
+    <string name="setting">设置</string>
+    <string name="exit_app">退出应用</string>
 
 </resources>

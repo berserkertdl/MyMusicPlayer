@@ -16,7 +16,7 @@ public final class Constants {
     public final static String APOLLO = "Apollo", APOLLO_PREFERENCES = "apollopreferences",
             ARTIST_KEY = "artist", ALBUM_KEY = "album", ALBUM_ID_KEY = "albumid", NUMALBUMS = "num_albums",
             GENRE_KEY = "genres", ARTIST_ID = "artistid", NUMWEEKS = "numweeks",
-            PLAYLIST_NAME_FAVORITES = "×îÏ²°®µÄ", PLAYLIST_NAME = "playlist", WIDGET_STYLE="widget_type",
+            PLAYLIST_NAME_FAVORITES = "favorite", PLAYLIST_NAME = "playlist", WIDGET_STYLE="widget_type",
             THEME_PACKAGE_NAME = "themePackageName", THEME_DESCRIPTION = "themeDescription",
             THEME_PREVIEW = "themepreview", THEME_TITLE = "themeTitle", VISUALIZATION_TYPE="visualization_type", 
             UP_STARTS_ALBUM_ACTIVITY = "upStartsAlbumActivity", TABS_ENABLED = "tabs_enabled";

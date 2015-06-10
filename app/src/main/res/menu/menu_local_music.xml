@@ -2,6 +2,53 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.mymusicplayer.activities.LocalMusicActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+
+    <item
+        android:id="@+id/actionBar_search"
+        android:icon="@drawable/actionbar_search_selector"
+        android:orderInCategory="100"
+        android:title="@string/context_menu"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_scan_music"
+        android:icon="@drawable/lay_icn_scan"
+        android:orderInCategory="100"
+        android:title="@string/scan_music"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_manage_music"
+        android:icon="@drawable/lay_icn_mng"
+        android:orderInCategory="100"
+        android:title="@string/manage_music"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_sort_style"
+        android:icon="@drawable/lay_icn_order_default"
+        android:orderInCategory="100"
+        android:title="@string/sort_style"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_get_web_img"
+        android:icon="@drawable/lay_icn_lrc"
+        android:orderInCategory="100"
+        android:title="@string/get_web_img"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_setting"
+        android:icon="@drawable/topmenu_icn_set"
+        android:orderInCategory="100"
+        android:title="@string/setting"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_exit_app"
+        android:icon="@drawable/topmenu_icn_exit"
+        android:orderInCategory="100"
+        android:title="@string/exit_app"
+        app:showAsAction="never" />
+
 </menu>

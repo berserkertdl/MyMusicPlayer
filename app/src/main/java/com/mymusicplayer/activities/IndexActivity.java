@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -92,7 +93,7 @@ public class IndexActivity extends ActionBarActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.actionBar_discover:
+                   /* case R.id.actionBar_discover:
                         item.setChecked(true);
                         break;
                     case R.id.actionBar_music:
@@ -100,7 +101,7 @@ public class IndexActivity extends ActionBarActivity {
                         break;
                     case R.id.actionBar_friends:
                         item.setChecked(true);
-                        break;
+                        break;*/
                 }
                 return true;
             }
@@ -148,6 +149,11 @@ public class IndexActivity extends ActionBarActivity {
         music_bar = (ImageView) findViewById(R.id.actionBar_music);
         friends_bar = (ImageView) findViewById(R.id.actionBar_friends);
         search_bar = (ImageButton) findViewById(R.id.actionBar_search);
+
+        ActionBarButtonClickListener clickListener = new ActionBarButtonClickListener();
+        discover_bar.setOnClickListener(clickListener);
+        music_bar.setOnClickListener(clickListener);
+        friends_bar.setOnClickListener(clickListener);
 
         PageChangListener pageChangeListener = new PageChangListener();
         mViewPager.setOnPageChangeListener(pageChangeListener);
@@ -245,27 +251,56 @@ public class IndexActivity extends ActionBarActivity {
 
         @Override
         public void onPageSelected(int position) {
-//            if (position==0) {
-//                Log.e("----------------", "actionBar_discover");
-//                music_bar.setBackgroundResource(R.drawable.actionbar_music_normal);
-//                friends_bar.setBackgroundResource(R.drawable.actionbar_friends_normal);
-//                discover_bar.setBackgroundResource(R.drawable.actionbar_discover_selected);
-//            } else if (position==1) {
-//                Log.e("----------------", "actionBar_music");
-//                friends_bar.setBackgroundResource(R.drawable.actionbar_friends_normal);
-//                discover_bar.setBackgroundResource(R.drawable.actionbar_discover_normal);
-//                music_bar.setBackgroundResource(R.drawable.actionbar_music_selected);
-//            } else if (position==2) {
-//                Log.e("----------------", "actionBar_friends");
-//                music_bar.setBackgroundResource(R.drawable.actionbar_music_normal);
-//                discover_bar.setBackgroundResource(R.drawable.actionbar_discover_normal);
-//                friends_bar.setBackgroundResource(R.drawable.actionbar_friends_selected);
-//            }
+            if (position==0) {
+                music_bar.setImageResource(R.drawable.actionbar_music_normal);
+                friends_bar.setImageResource(R.drawable.actionbar_friends_normal);
+                discover_bar.setImageResource(R.drawable.actionbar_discover_selected);
+            } else if (position==1) {
+                friends_bar.setImageResource(R.drawable.actionbar_friends_normal);
+                discover_bar.setImageResource(R.drawable.actionbar_discover_normal);
+                music_bar.setImageResource(R.drawable.actionbar_music_selected);
+            } else if (position==2) {
+                music_bar.setImageResource(R.drawable.actionbar_music_normal);
+                discover_bar.setImageResource(R.drawable.actionbar_discover_normal);
+                friends_bar.setImageResource(R.drawable.actionbar_friends_selected);
+            }
 
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
+
+        }
+
+    }
+
+    class ActionBarButtonClickListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+
+            switch (v.getId()){
+                case R.id.actionBar_discover:
+                    music_bar.setImageResource(R.drawable.actionbar_music_normal);
+                    friends_bar.setImageResource(R.drawable.actionbar_friends_normal);
+                    discover_bar.setImageResource(R.drawable.actionbar_discover_selected);
+                    mViewPager.setCurrentItem(0);
+                    break;
+
+                case R.id.actionBar_music:
+                    friends_bar.setImageResource(R.drawable.actionbar_friends_normal);
+                    discover_bar.setImageResource(R.drawable.actionbar_discover_normal);
+                    music_bar.setImageResource(R.drawable.actionbar_music_selected);
+                    mViewPager.setCurrentItem(1);
+                    break;
+
+                case R.id.actionBar_friends:
+                    music_bar.setImageResource(R.drawable.actionbar_music_normal);
+                    discover_bar.setImageResource(R.drawable.actionbar_discover_normal);
+                    friends_bar.setImageResource(R.drawable.actionbar_friends_selected);
+                    mViewPager.setCurrentItem(2);
+                    break;
+            }
 
         }
 

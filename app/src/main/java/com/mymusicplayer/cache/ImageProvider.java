@@ -120,7 +120,7 @@ public class ImageProvider implements GetBitmapTask.OnBitmapReadyListener{
 
     @Override
     public void bitmapReady(Bitmap bitmap, String tag) {
-        bitmap = ToolFor9Ge.zoomImg(bitmap, 160, 160);
+//        bitmap = ToolFor9Ge.zoomImg(bitmap, 160, 160);
         if (bitmap == null) {
             unavailable.add(tag);
         }

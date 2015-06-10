@@ -3,21 +3,51 @@
     <!-- Base application theme. -->
     <!--<style name="AppTheme" parent="AppTheme.Base"></style>-->
 
-    <style name="AppTheme.Base" parent="Theme.AppCompat">
+    <!--<style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">-->
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <!--<item name="android:windowNoTitle">true</item>-->
+        <item name="android:windowNoTitle">true</item>
 
-        <item name="colorPrimary">@color/accent_material_dark</item>
-        <item name="colorPrimaryDark">@color/accent_material_light</item>
+        <item name="colorPrimary">#E03432</item>
+        <item name="colorPrimaryDark">#D33434</item>
+        <item name="colorAccent">#D33434</item>
         <!-- 窗口的背景颜色 -->
-        <item name="android:windowBackground">@android:color/white</item>
+        <!--<item name="android:windowBackground">@android:color/white</item>-->
         <!-- SearchView -->
         <item name="searchViewStyle">@style/MySearchViewStyle</item>
+        <!--<item name="android:textColor">#000000</item>-->
+        <!--溢出菜单样式 -->
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
+    </style>
+
+    <!--溢出菜单样式 -->
+    <style name="OverflowMenuStyle" parent="@style/Widget.AppCompat.Light.PopupMenu.Overflow">
+        <!-- 溢出菜单图标颜色-->
+        <item name="colorControlNormal">@android:color/white</item>
+
+        <!--<item name="overlapAnchor">false</item>-->
+        <!-- 溢出菜单文字颜色-->
+        <item name="textAppearanceLargePopupMenu">@style/OverflowMenuTextAppearance</item>
+
+        <item name="android:dropDownWidth">wrap_content</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:popupBackground">#F4F4F6</item>
+        <!--<item name="android:popupBackground">?attr/colorPrimary</item>-->
+        <item name="android:dropDownVerticalOffset">28dip</item>
+        <item name="android:dropDownHorizontalOffset">0dip</item>
+
+        <!-- 菜单项点击selector-->
+        <item name="actionBarItemBackground">@drawable/abc_item_background_holo_dark</item>
+    </style>
+
+    <!--溢出菜单文字样式-->
+    <style name="OverflowMenuTextAppearance" parent="@style/TextAppearance.AppCompat.Widget.PopupMenu.Large">
         <item name="android:textColor">#000000</item>
     </style>
 
     <style name="AppTheme" parent="AppTheme.Base"></style>
+
 
     <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">
         <!--

@@ -2,19 +2,25 @@ package com.mymusicplayer.activities;
 
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.mymusicplayer.R;
+import com.mymusicplayer.helper.utils.L;
 import com.mymusicplayer.ui.adapters.TitlePagerAdapter;
 import com.mymusicplayer.ui.fragments.localmusic.MusicFolderFragment;
 import com.mymusicplayer.ui.fragments.localmusic.MusicArtistFragment;
 import com.mymusicplayer.ui.fragments.localmusic.MusicAlbumFragment;
 import com.mymusicplayer.ui.fragments.localmusic.SingleMusicFragment;
+
+import java.lang.reflect.Method;
 
 public class LocalMusicActivity extends ActionBarActivity {
 
@@ -38,7 +44,19 @@ public class LocalMusicActivity extends ActionBarActivity {
         tabs.setUnderlineColorResource(R.color.pagerTabUnderlineColorResource);
         tabs.setIndicatorHeight(6);
         tabs.setViewPager(pager);
+        initToolBar();
 
+    }
+
+
+    private void initToolBar() {
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);// 给左上角图标的左边加上一个返回的图标
+        actionBar.setDisplayShowTitleEnabled(false);
+        mToolbar.setNavigationIcon(R.drawable.actionbar_check);
     }
 
     private void initPages() {
@@ -67,19 +85,45 @@ public class LocalMusicActivity extends ActionBarActivity {
         return true;
     }
 
+    /**
+     * 利用反射让隐藏在Overflow中的MenuItem显示Icon图标
+     * @param featureId
+     * @param menu
+     */
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        L.e("onMenuOpened : " + featureId);
+        if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
+            if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
+                try {
+                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    m.setAccessible(true);
+                    m.invoke(menu, true);
+                } catch (Exception e) {
+                }
+            }
+        }
+        return super.onMenuOpened(featureId, menu);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                finish();
+                return true;
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            case R.id.action_settings:
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -25,7 +25,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:clickable="true"
-                android:background="@drawable/holo_selector">
+                android:background="@drawable/holo_a09898_selector">
 
                 <ImageView
                     android:id="@+id/actionBar_discover"
@@ -40,7 +40,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:clickable="true"
-                android:background="@drawable/holo_selector">
+                android:background="@drawable/holo_a09898_selector">
 
                 <ImageView
                     android:id="@+id/actionBar_music"
@@ -55,7 +55,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:clickable="true"
-                android:background="@drawable/holo_selector">
+                android:background="@drawable/holo_a09898_selector">
 
                 <ImageView
                     android:id="@+id/actionBar_friends"
