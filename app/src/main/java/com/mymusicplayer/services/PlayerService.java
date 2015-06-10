@@ -61,6 +61,7 @@ public class PlayerService extends Service {
         player = new MediaPlayer();
         try {
             player.setDataSource(url);
+            player.prepare();
             player_state = 1;
         } catch (Exception e) {
             e.printStackTrace();

@@ -12,6 +12,9 @@
         <item name="colorPrimary">#E03432</item>
         <item name="colorPrimaryDark">#D33434</item>
         <item name="colorAccent">#D33434</item>
+
+
+
         <!-- 窗口的背景颜色 -->
         <!--<item name="android:windowBackground">@android:color/white</item>-->
         <!-- SearchView -->
