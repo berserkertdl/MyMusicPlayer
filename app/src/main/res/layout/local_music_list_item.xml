@@ -13,17 +13,16 @@
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
             android:layout_alignParentLeft="true"
             android:duplicateParentState="true"
-            android:maxHeight="38dp"
-            android:maxWidth="38dp"
             android:scaleType="centerCrop"
-            android:paddingBottom="4dp"
-            android:paddingTop="4dp" />
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/title"
@@ -81,8 +80,6 @@
         android:layout_marginLeft="@dimen/item_line_gap"
         android:layout_marginRight="@dimen/item_line_gap"
         android:background="@color/index_music_item_line_color" />
-
-
 
 
 </LinearLayout>

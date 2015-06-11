@@ -116,6 +116,7 @@ public class SortCursorAdpter extends SimpleCursorAdapter {
     }
 
     public void setViewImage(ImageView v, Cursor cursor) {
+        v.setVisibility(View.VISIBLE);
         String album_id = cursor.getInt(cursor.getColumnIndexOrThrow("album_id"))+"";
         String artist = cursor.getString(cursor.getColumnIndexOrThrow("artist"));
         String album = cursor.getString(cursor.getColumnIndexOrThrow("album"));

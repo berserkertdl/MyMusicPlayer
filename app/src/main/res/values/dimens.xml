@@ -15,4 +15,7 @@
     <dimen name="item_title_right_gap">16dp</dimen>
     <dimen name="item_line_gap">16dp</dimen>
 
+
+    <dimen name="navdrawer_width">260dp</dimen>
+
 </resources>

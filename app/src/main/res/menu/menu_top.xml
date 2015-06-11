@@ -44,6 +44,6 @@
         android:title="@string/context_menu"
         android:icon="@drawable/actionbar_menu"
         android:orderInCategory="100"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 
 </menu>

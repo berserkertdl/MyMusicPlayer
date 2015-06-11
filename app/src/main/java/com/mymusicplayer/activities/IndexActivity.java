@@ -1,5 +1,6 @@
 package com.mymusicplayer.activities;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -7,8 +8,10 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +30,8 @@ import com.mymusicplayer.PullToRefreshView;
 import com.mymusicplayer.R;
 import com.mymusicplayer.helper.database.DBManager;
 import com.mymusicplayer.helper.utils.DBThread;
+import com.mymusicplayer.helper.utils.L;
+import com.mymusicplayer.services.PlayerService;
 import com.mymusicplayer.ui.adapters.PagerAdapter;
 import com.mymusicplayer.ui.fragments.DiscoverFragment;
 import com.mymusicplayer.ui.fragments.FirendsFragment;
@@ -68,11 +73,30 @@ public class IndexActivity extends ActionBarActivity {
     private DialogFragment mMenuDialogFragment;
     private FragmentManager fragmentManager;
 
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
+
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.inflateMenu(R.menu.menu_top);
+        setSupportActionBar(mToolbar);
+
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true); //使左上角图标可点击
+        actionBar.setDisplayHomeAsUpEnabled(false);// 给左上角图标的左边加上一个返回的图标
+        actionBar.setDisplayShowTitleEnabled(false);
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        // 實作 drawer toggle 並放入 toolbar
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
+        mDrawerToggle.syncState();
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
         fragmentManager = getSupportFragmentManager();
         initToolbar();
         initComponet();
@@ -81,34 +105,11 @@ public class IndexActivity extends ActionBarActivity {
     }
 
     private void initToolbar() {
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-//        TextView mToolBarTextView = (TextView) findViewById(R.id.text_view_toolbar_title);
-        setSupportActionBar(mToolbar);
 
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(false); //使左上角图标可点击
-        actionBar.setDisplayHomeAsUpEnabled(false);// 给左上角图标的左边加上一个返回的图标
-        actionBar.setDisplayShowTitleEnabled(false);
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                   /* case R.id.actionBar_discover:
-                        item.setChecked(true);
-                        break;
-                    case R.id.actionBar_music:
-                        item.setChecked(true);
-                        break;
-                    case R.id.actionBar_friends:
-                        item.setChecked(true);
-                        break;*/
-                }
-                return true;
-            }
-        });
 
         Toolbar toolbarBottom = (Toolbar) findViewById(R.id.toolbar_bottom);
-        toolbarBottom.setLogo(R.drawable.default_disc_141);
+//        toolbarBottom.setLogo(R.drawable.default_disc_141);
+        toolbarBottom.setNavigationIcon(R.drawable.default_disc_141);
         toolbarBottom.setTitle(R.string.action_title);
         toolbarBottom.setSubtitle(R.string.action_sub_title);
 
@@ -117,10 +118,15 @@ public class IndexActivity extends ActionBarActivity {
         toolbarBottom.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                L.e("OnMenuItemClickListener: " + item.getItemId());
                 switch (item.getItemId()) {
                     case R.id.action_play:
-                        // TODO
-                        item.setChecked(true);
+                        L.e("onMenuItemClick : "+item.isChecked());
+                        item.setChecked(false);
+                        item.setIcon(R.drawable.note_btn_pause_white);
+                        Intent intent = new Intent(IndexActivity.this, PlayerService.class);
+                        intent.putExtra("flag",3);
+                        startService(intent);
                         break;
                     // TODO: Other cases
                 }
@@ -148,7 +154,7 @@ public class IndexActivity extends ActionBarActivity {
         discover_bar = (ImageView) findViewById(R.id.actionBar_discover);
         music_bar = (ImageView) findViewById(R.id.actionBar_music);
         friends_bar = (ImageView) findViewById(R.id.actionBar_friends);
-        search_bar = (ImageButton) findViewById(R.id.actionBar_search);
+//        search_bar = (ImageButton) findViewById(R.id.actionBar_search);
 
         ActionBarButtonClickListener clickListener = new ActionBarButtonClickListener();
         discover_bar.setOnClickListener(clickListener);
@@ -219,12 +225,6 @@ public class IndexActivity extends ActionBarActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_top, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

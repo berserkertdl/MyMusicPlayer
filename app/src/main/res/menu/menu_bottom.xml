@@ -9,7 +9,7 @@
         android:orderInCategory="100"
         android:title="@string/action_play"
         android:checkable="true"
-        android:icon="@drawable/actionbar_playpause_selector"
+        android:icon="@drawable/note_btn_pause_white"
         app:showAsAction="always" />
 
     <item

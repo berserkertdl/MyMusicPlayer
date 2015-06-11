@@ -69,6 +69,7 @@ public class LocalMusicActivityFragment extends Fragment {
                 SortCursor cursor = (SortCursor) parent.getItemAtPosition(position);
                 String url = cursor.getString(cursor.getColumnIndexOrThrow("_data"));
                 Intent intent = new Intent(getActivity(), PlayerService.class);
+                intent.putExtra("flag",2);
                 intent.putExtra("url", url);
                 getActivity().startService(intent);
             }
