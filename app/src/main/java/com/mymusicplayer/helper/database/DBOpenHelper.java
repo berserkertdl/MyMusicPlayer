@@ -75,6 +75,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                 "album_key TEXT," +
                 "album TEXT," +
                 "is_delete INTEGER" +
+                "last_play_time INTEGER" +   //最后一次播放时间
                 ")");
     }
 

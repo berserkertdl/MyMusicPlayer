@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.view.Menu;
 
 import com.mymusicplayer.R;
+import com.mymusicplayer.helper.utils.DBThread;
 import com.mymusicplayer.helper.utils.L;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class PlayerService extends Service {
         L.e(TAG,"onStartCommand");
         String tempUrl = intent.getStringExtra("url");
         int playFlag = intent.getIntExtra("flag", 2);
+        int id = intent.getIntExtra("id", 0);
 
         switch (playFlag) {
             //stop
@@ -62,6 +64,7 @@ public class PlayerService extends Service {
                     play();
                     musicUrls.add(tempUrl);
                     currentUrl = tempUrl;
+                    new DBThread().new UpdateLateLyPlayListThread(id).start();  //更新歌曲最后播放时间线程
                 }
                 break;
             //pause

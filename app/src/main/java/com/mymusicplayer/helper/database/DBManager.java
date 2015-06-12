@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 
 import com.mymusicplayer.helper.vo.MusicEntity;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -50,32 +51,6 @@ public class DBManager {
         db = hepler.getWritableDatabase();
         initialized = true;
     }
-
-//    public static void adds(List<MusicEntity> musics) {
-//        isInit();
-//        db.beginTransaction();
-//        for (MusicEntity music : musics) {
-//            db.execSQL("insert into " + TABLE_NAME, new Object[]{music.getTitle(),
-//                    music.getArtist(),
-//                    music.getAlbum(),
-//                    music.getUrl(),
-//                    music.getDuration(),
-//                    music.getSize(),
-//                    music.getAlbum_artist(),
-//                    music.getIs_alarm(),
-//                    music.getIs_music(),
-//                    music.getDisplay_name(),
-//                    music.getBookmark(),
-//                    music.getYear(),
-//                    music.getTrack(),
-//                    music.getDate_add(),
-//                    music.getDate_modified(),
-//                    music.getMine_type(),
-//                    music.getIs_delete(),
-//            });
-//        }
-//
-//    }
 
     public static void adds(Context context) {
 
@@ -118,8 +93,6 @@ public class DBManager {
         } finally {
             db.endTransaction();
         }
-
-
     }
 
     public static Cursor getAllAudioMedio() {
@@ -127,7 +100,7 @@ public class DBManager {
     }
 
     public static int getAllLocalAudioMedioCount() {
-        Cursor cursor = db.rawQuery("select count(*) from " + TABLE_NAME, null);
+        Cursor cursor = db.rawQuery("select count(*) from " + TABLE_NAME+ " where is_delete = 0", null);
         while (cursor.moveToNext()) {
             return cursor.getInt(0);
         }
@@ -150,6 +123,41 @@ public class DBManager {
         return db.rawQuery("SELECT count(*) numsongs  ,* FROM " + TABLE_NAME + " where is_delete = 0 group by album_id ", null);
     }
 
+    /**
+     * 更新最近播放的歌曲时间
+     * */
+    public static void updateMusicLastPlayTimeById(int song_id){
+        db.beginTransaction();
+        try{
+            db.execSQL("update " + TABLE_NAME + " set last_play_time = datetime('now','localtime') where _id=?",new Object[]{song_id});
+            db.setTransactionSuccessful();
+        }catch  (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    /**
+     * 最近播放的100首
+     * */
+    public static Cursor lateLyMusicPlayList(){
+        return db.rawQuery("select * from " + TABLE_NAME + " where is_delete = 0 and last_play_time<>0 order by last_play_time desc limit 100",null);
+    }
+
+    /**
+     * 最近播放的歌曲数
+     * */
+    public static int getLateLyMusicCount(){
+        Cursor cursor = db.rawQuery("select count(*) from " + TABLE_NAME + " where is_delete = 0 and last_play_time<>0", null);
+        while (cursor.moveToNext()) {
+            return cursor.getInt(0);
+        }
+        return 0;
+    }
+
+
+
 
     public static void destory() {
         if (db != null) {
@@ -162,7 +170,6 @@ public class DBManager {
             hepler = null;
         }
         initialized = false;
-
     }
 
 }

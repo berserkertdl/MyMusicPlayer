@@ -1,9 +1,6 @@
 package com.mymusicplayer.activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -13,22 +10,23 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 
 import com.contextmenu.ContextMenuDialogFragment;
-import com.contextmenu.MenuObject;
 import com.contextmenu.MenuParams;
 import com.mymusicplayer.PullToRefreshView;
 import com.mymusicplayer.R;
+import com.mymusicplayer.helper.DataSource;
 import com.mymusicplayer.helper.database.DBManager;
+import com.mymusicplayer.helper.utils.AppUtils;
 import com.mymusicplayer.helper.utils.DBThread;
 import com.mymusicplayer.helper.utils.L;
 import com.mymusicplayer.services.PlayerService;
@@ -37,7 +35,6 @@ import com.mymusicplayer.ui.fragments.DiscoverFragment;
 import com.mymusicplayer.ui.fragments.FirendsFragment;
 import com.mymusicplayer.ui.fragments.MusicGuideFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -58,15 +55,9 @@ public class IndexActivity extends ActionBarActivity {
     private ViewPager mViewPager;
     private ImageView discover_bar, music_bar, friends_bar, search_bar, menu_bar;
 
-    private View discover_view, music_view, friends_view;
+    private View discover_view, music_view, friends_view, rightDrawerLayout;
 
-    private List<View> views;
-
-    private LayoutInflater lf;
-
-    private int offset = 0;// 动画图片偏移量
-    private int currIndex = 0;// 当前页卡编号
-
+    private ListView drwaerMenuListView;
 
     private PullToRefreshView pullToRefreshView;
 
@@ -76,39 +67,64 @@ public class IndexActivity extends ActionBarActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
+    private static final String TAG = IndexActivity.class.getSimpleName();
+
+    private List<View> views;
+
+    private LayoutInflater lf;
+
+    private int offset = 0;// 动画图片偏移量
+    private int currIndex = 0;// 当前页卡编号
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppUtils.add(this);
         setContentView(R.layout.activity_index);
-
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.inflateMenu(R.menu.menu_top);
-        setSupportActionBar(mToolbar);
-
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true); //使左上角图标可点击
-        actionBar.setDisplayHomeAsUpEnabled(false);// 给左上角图标的左边加上一个返回的图标
-        actionBar.setDisplayShowTitleEnabled(false);
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        // 實作 drawer toggle 並放入 toolbar
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
-        mDrawerToggle.syncState();
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        fragmentManager = getSupportFragmentManager();
+        initDrawer();
         initToolbar();
         initComponet();
-        initMenuFragment();
+//        initMenuFragment();
         initData();
+    }
+
+    private void initDrawer() {
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        // 實作 drawer toggle 並放入 toolbar
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
+        mDrawerToggle.syncState();
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        rightDrawerLayout = findViewById(R.id.drawer_view);
+        drwaerMenuListView = (ListView) findViewById(R.id.drawer_menu_list);
+        drwaerMenuListView.setAdapter(new SimpleAdapter(this,DataSource.getDrawerMenuObject(this),R.layout.drawer_menu_list_item,getResources().getStringArray(R.array.list_item_key),new int[]{R.id.menu_item_icon,R.id.menu_item_title}));
+        drwaerMenuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+
+                    //exit
+                    case 7:
+                        AppUtils.finishProgram();
+                        break;
+
+                }
+
+            }
+        });
     }
 
     private void initToolbar() {
 
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(false); //使左上角图标可点击
+        actionBar.setDisplayHomeAsUpEnabled(false);// 给左上角图标的左边加上一个返回的图标
+        actionBar.setDisplayShowTitleEnabled(false);
 
         Toolbar toolbarBottom = (Toolbar) findViewById(R.id.toolbar_bottom);
-//        toolbarBottom.setLogo(R.drawable.default_disc_141);
         toolbarBottom.setNavigationIcon(R.drawable.default_disc_141);
         toolbarBottom.setTitle(R.string.action_title);
         toolbarBottom.setSubtitle(R.string.action_sub_title);
@@ -121,11 +137,11 @@ public class IndexActivity extends ActionBarActivity {
                 L.e("OnMenuItemClickListener: " + item.getItemId());
                 switch (item.getItemId()) {
                     case R.id.action_play:
-                        L.e("onMenuItemClick : "+item.isChecked());
+                        L.e("onMenuItemClick : " + item.isChecked());
                         item.setChecked(false);
                         item.setIcon(R.drawable.note_btn_pause_white);
                         Intent intent = new Intent(IndexActivity.this, PlayerService.class);
-                        intent.putExtra("flag",3);
+                        intent.putExtra("flag", 3);
                         startService(intent);
                         break;
                     // TODO: Other cases
@@ -134,18 +150,13 @@ public class IndexActivity extends ActionBarActivity {
             }
         });
 
+    }
 
-        // Inflate a menu to be displayed in the toolbar
-
-
-//        mToolbar.setNavigationIcon(R.drawable.btn_back);
-//        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onBackPressed();
-//            }
-//        });
-//        mToolBarTextView.setText("Samantha");
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_top, menu);
+        return true;
     }
 
     private void initComponet() {
@@ -167,75 +178,56 @@ public class IndexActivity extends ActionBarActivity {
     }
 
 
+    /**
+     * 初始化菜单
+     */
     private void initMenuFragment() {
         MenuParams menuParams = new MenuParams();
         menuParams.setActionBarSize((int) getResources().getDimension(R.dimen.tool_bar_height));
-        menuParams.setMenuObjects(getMenuObjects());
+        menuParams.setMenuObjects(DataSource.getMenuObjects(this));
         menuParams.setClosableOutside(false);
         mMenuDialogFragment = ContextMenuDialogFragment.newInstance(menuParams);
     }
 
-    private List<MenuObject> getMenuObjects() {
-
-        List<MenuObject> menuObjects = new ArrayList<>();
-
-        MenuObject close = new MenuObject();
-        close.setResource(R.drawable.icn_close);
-
-        MenuObject send = new MenuObject("Send message");
-        send.setResource(R.drawable.icn_1);
-
-        MenuObject like = new MenuObject("Like profile");
-        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.icn_2);
-        like.setBitmap(b);
-
-        MenuObject addFr = new MenuObject("Add to friends");
-        BitmapDrawable bd = new BitmapDrawable(getResources(),
-                BitmapFactory.decodeResource(getResources(), R.drawable.icn_3));
-        addFr.setDrawable(bd);
-
-        MenuObject addFav = new MenuObject("Add to favorites");
-        addFav.setResource(R.drawable.icn_4);
-
-        MenuObject block = new MenuObject("Block user");
-        block.setResource(R.drawable.icn_5);
-
-        menuObjects.add(close);
-        menuObjects.add(send);
-        menuObjects.add(like);
-        menuObjects.add(addFr);
-        menuObjects.add(addFav);
-        menuObjects.add(block);
-        return menuObjects;
-    }
 
     private void initData() {
         DBManager.init(this);
-        if(DBManager.getAllLocalAudioMedioCount()==0){
+        if (DBManager.getAllLocalAudioMedioCount() == 0) {
             new DBThread().new InitThread(this).start();
         }
-
         PagerAdapter fragmentPagerAdapter = new PagerAdapter(getSupportFragmentManager());
         fragmentPagerAdapter.addFragment(new DiscoverFragment());
         fragmentPagerAdapter.addFragment(new MusicGuideFragment());
         fragmentPagerAdapter.addFragment(new FirendsFragment());
         mViewPager.setAdapter(fragmentPagerAdapter);
 
-
     }
-
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        L.e(TAG, "onOptionsItemSelected : item id-----" + item.getItemId());
         switch (item.getItemId()) {
+
             case R.id.context_menu:
-                if (fragmentManager.findFragmentByTag(ContextMenuDialogFragment.TAG) == null) {
+                openRightLayout();
+                /*if (fragmentManager.findFragmentByTag(ContextMenuDialogFragment.TAG) == null) {
                     mMenuDialogFragment.show(fragmentManager, ContextMenuDialogFragment.TAG);
-                }
+                }*/
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * 打开右侧抽屉
+     */
+    public void openRightLayout() {
+        if (mDrawerLayout.isDrawerOpen(rightDrawerLayout)) {
+            mDrawerLayout.closeDrawer(rightDrawerLayout);
+        } else {
+            mDrawerLayout.openDrawer(rightDrawerLayout);
+        }
     }
 
 
@@ -251,15 +243,15 @@ public class IndexActivity extends ActionBarActivity {
 
         @Override
         public void onPageSelected(int position) {
-            if (position==0) {
+            if (position == 0) {
                 music_bar.setImageResource(R.drawable.actionbar_music_normal);
                 friends_bar.setImageResource(R.drawable.actionbar_friends_normal);
                 discover_bar.setImageResource(R.drawable.actionbar_discover_selected);
-            } else if (position==1) {
+            } else if (position == 1) {
                 friends_bar.setImageResource(R.drawable.actionbar_friends_normal);
                 discover_bar.setImageResource(R.drawable.actionbar_discover_normal);
                 music_bar.setImageResource(R.drawable.actionbar_music_selected);
-            } else if (position==2) {
+            } else if (position == 2) {
                 music_bar.setImageResource(R.drawable.actionbar_music_normal);
                 discover_bar.setImageResource(R.drawable.actionbar_discover_normal);
                 friends_bar.setImageResource(R.drawable.actionbar_friends_selected);
@@ -274,12 +266,12 @@ public class IndexActivity extends ActionBarActivity {
 
     }
 
-    class ActionBarButtonClickListener implements View.OnClickListener{
+    class ActionBarButtonClickListener implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
 
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.actionBar_discover:
                     music_bar.setImageResource(R.drawable.actionbar_music_normal);
                     friends_bar.setImageResource(R.drawable.actionbar_friends_normal);
@@ -306,4 +298,11 @@ public class IndexActivity extends ActionBarActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //移出管理栈
+        AppUtils.remove(this);
+
+    }
 }

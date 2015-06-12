@@ -6,6 +6,7 @@
     <color name="index_music_item_color">#FAFAFA</color>
     <color name="index_music_item_select_color">#F2F2F2</color>
     <color name="index_music_item_line_color">#E0E0E2</color>
+    <color name="line_color">#E0E0E2</color>
     <color name="item_icon_tint">#C52D2A</color>
     <color name="background_window">#FFE5E5E5</color>
     <color name="pagerTabIndicatorColor">#DF3130</color>
@@ -19,7 +20,9 @@
     <color name="transparent">#00000000</color>
 
 
+    <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+
     <color name="a09898">#A09898</color>
 
 

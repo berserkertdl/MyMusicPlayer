@@ -13,6 +13,7 @@ import android.view.Window;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.mymusicplayer.R;
+import com.mymusicplayer.helper.utils.AppUtils;
 import com.mymusicplayer.helper.utils.L;
 import com.mymusicplayer.ui.adapters.TitlePagerAdapter;
 import com.mymusicplayer.ui.fragments.localmusic.MusicFolderFragment;
@@ -32,6 +33,7 @@ public class LocalMusicActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppUtils.add(this);
         setContentView(R.layout.local_music);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         pager = (ViewPager) findViewById(R.id.pager);
@@ -87,6 +89,7 @@ public class LocalMusicActivity extends ActionBarActivity {
 
     /**
      * 利用反射让隐藏在Overflow中的MenuItem显示Icon图标
+     *
      * @param featureId
      * @param menu
      */
@@ -123,6 +126,14 @@ public class LocalMusicActivity extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //移出管理栈
+        AppUtils.remove(this);
 
     }
 

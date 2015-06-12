@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mymusicplayer.R;
+import com.mymusicplayer.helper.utils.AppUtils;
 import com.mymusicplayer.helper.utils.L;
 
 public class LocalMusicListActivity extends ActionBarActivity {
@@ -15,6 +16,7 @@ public class LocalMusicListActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppUtils.add(this);
         setContentView(R.layout.local_activity_artist_music);
         initToolBar();
     }
@@ -56,6 +58,14 @@ public class LocalMusicListActivity extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //移出管理栈
+        AppUtils.remove(this);
 
     }
 }

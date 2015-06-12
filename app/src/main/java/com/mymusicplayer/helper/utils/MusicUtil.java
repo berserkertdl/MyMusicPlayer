@@ -3,6 +3,7 @@ package com.mymusicplayer.helper.utils;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.mymusicplayer.R;
 import com.mymusicplayer.helper.vo.MusicEntity;
+import com.mymusicplayer.services.PlayerService;
 
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
@@ -206,7 +208,19 @@ public class MusicUtil {
     private static final BitmapFactory.Options sBitmapOptions = new BitmapFactory.Options();
     private static Bitmap mCachedBit = null;
     private static String defaultSrc = "internal";
-//    private static Uri sArtworkUri = Uri.parse("content://media/"+defaultSrc+"/audio/albumart");
+
+
+    /**
+     *播放歌曲
+     * */
+    public static void playMusic(Context context,Cursor cursor){
+        String url = cursor.getString(cursor.getColumnIndexOrThrow("_data"));
+        Intent intent = new Intent(context, PlayerService.class);
+        intent.putExtra("id", cursor.getInt(cursor.getColumnIndexOrThrow("_id"))); // 歌曲id   用于更新数据库中歌曲最后播放时间
+        intent.putExtra("flag",2);//flag 2 播放
+        intent.putExtra("url", url); // 歌曲路径
+        context.startService(intent);
+    }
 
 
 }

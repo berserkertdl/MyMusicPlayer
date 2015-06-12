@@ -76,7 +76,7 @@ public class MusicGudieAdpter extends BaseAdapter{
         img.setBackgroundResource(Integer.parseInt(obj[0] + ""));
         TextView titleView = (TextView) convertView.findViewById(R.id.item_title);
         titleView.setText(obj[1] + "");
-        TextView countView = (TextView) convertView.findViewById(R.id.item_count);
+        TextView countView = (TextView) convertView.findViewById(R.id.item_second_title);
         countView.setText(obj[2] + "");
         return convertView;
     }

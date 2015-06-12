@@ -10,15 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import com.mymusicplayer.PullToRefreshView;
 import com.mymusicplayer.R;
 import com.mymusicplayer.activities.LocalMusicActivity;
+import com.mymusicplayer.helper.DataSource;
 import com.mymusicplayer.helper.database.DBManager;
 import com.mymusicplayer.helper.utils.DBThread;
 import com.mymusicplayer.ui.adapters.MusicGudieAdpter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -45,52 +48,23 @@ public class MusicGuideFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        musicTypes = new ArrayList<Object[]>();
-//        Object[] obj1 = {R.drawable.music_icn_local, getResources().getString(R.string.music_local), "（0）"};
-//        musicTypes.add(obj1);
-//        Object[] obj2 = {R.drawable.music_icn_recent, "最近播放", "（0）"};
-//        musicTypes.add(obj2);
-//        Object[] obj3 = {R.drawable.music_icn_dld, "下载管理", "（0）"};
-//        musicTypes.add(obj3);
-//        Object[] obj4 = {R.drawable.music_icn_artist, "我的歌手", "（0）"};
-//        musicTypes.add(obj4);
-//        Object[] obj5 = {R.drawable.music_icn_dj, "我的电台", "（0）"};
-//        musicTypes.add(obj5);
-//        Object[] obj6 = {R.drawable.music_icn_mv, "我的MV", "（0）"};
-//        musicTypes.add(obj6);
-
 
 
     }
 
-    private List<Object[]> getListData(){
-        DBManager.init(getActivity());
-        musicTypes = new ArrayList<Object[]>();
-        int localMusicCount = dbManager.getAllLocalAudioMedioCount();
-        Object[] obj1 = {R.drawable.music_icn_local, getResources().getString(R.string.music_local), "（"+localMusicCount+"）"};
-        musicTypes.add(obj1);
-        Object[] obj2 = {R.drawable.music_icn_recent, getResources().getString(R.string.music_recent), "（0）"};
-        musicTypes.add(obj2);
-        Object[] obj3 = {R.drawable.music_icn_dld, getResources().getString(R.string.music_dld), "（0）"};
-        musicTypes.add(obj3);
-        Object[] obj4 = {R.drawable.music_icn_artist, getResources().getString(R.string.music_artist), "（0）"};
-        musicTypes.add(obj4);
-        Object[] obj5 = {R.drawable.music_icn_dj, getResources().getString(R.string.music_dj), "（0）"};
-        musicTypes.add(obj5);
-        Object[] obj6 = {R.drawable.music_icn_mv, getResources().getString(R.string.music_mv), "（0）"};
-        musicTypes.add(obj6);
-        return musicTypes;
-    }
 
-    private MusicGudieAdpter musicGudieAdpter;
+
+    private SimpleAdapter gudieAdpter;
+
+    private List<HashMap<String,Object>> guideList;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        musicGudieAdpter = new MusicGudieAdpter(getActivity(),musicTypes);
-
+        guideList = (List<HashMap<String,Object>>) DataSource.getMusicGuides(getActivity(),false);
+        gudieAdpter = new SimpleAdapter(getActivity(), guideList,R.layout.index_music_list_item,new String []{"item_icon","item_title","item_second_title"},new int []{R.id.item_icon,R.id.item_title,R.id.item_second_title,});
         if(index_music_list!=null){
-            index_music_list.setAdapter(musicGudieAdpter);
+            index_music_list.setAdapter(gudieAdpter);
         }
         index_music_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -106,8 +80,8 @@ public class MusicGuideFragment extends Fragment {
                 pullToRefreshView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        musicGudieAdpter.setMusicTypes(getListData());
-                        musicGudieAdpter.notifyDataSetChanged();
+                        guideList = (List<HashMap<String,Object>>) DataSource.getMusicGuides(getActivity(),true);
+                        gudieAdpter.notifyDataSetChanged();
                         pullToRefreshView.setRefreshing(false);
                     }
                 },1000);
@@ -124,9 +98,7 @@ public class MusicGuideFragment extends Fragment {
         View root = inflater.inflate(R.layout.index_music, container, false);
         index_music_list =(ListView) root.findViewById(R.id.local_music_list);
         pullToRefreshView = (PullToRefreshView) root.findViewById(R.id.pull_refresh_view);
-
         return root;
-
 
     }
 

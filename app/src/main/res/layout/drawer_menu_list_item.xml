@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_height">
+
+    <ImageView
+        android:id="@+id/menu_item_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/list_item_first_left_gap" />
+
+    <TextView
+        android:id="@+id/menu_item_title"
+        style="@style/middlTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/list_item_second_left_gap"
+        android:layout_toRightOf="@+id/menu_item_icon" />
+
+    <ImageView
+        android:id="@+id/menu_item_hot_dot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/menu_item_title"
+        android:src="@drawable/actionbar_menu_dot"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/menu_item_sec_title"
+        style="@style/smallTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/list_item_second_right_gap"
+        android:layout_toLeftOf="@+id/menu_right_icon" />
+
+    <ImageView
+        android:id="@+id/menu_item_sec_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/menu_item_sec_title" />
+
+
+    <ImageView
+        android:id="@+id/menu_right_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/list_item_first_right_gap"
+        android:src="@drawable/topmenu_icn_arr" />
+
+</RelativeLayout>

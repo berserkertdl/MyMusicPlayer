@@ -70,9 +70,6 @@
     </android.support.v7.widget.Toolbar>
 
 
-
-
-
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer"
         android:layout_width="match_parent"
@@ -88,7 +85,7 @@
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/toolbar_bottom"/>
+                android:layout_above="@+id/toolbar_bottom" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar_bottom"
@@ -106,9 +103,49 @@
             android:id="@+id/drawer_view"
             android:layout_width="@dimen/navdrawer_width"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="#88FFFFFF"
+            android:layout_gravity="end"
+            android:background="#FFFFFF"
             android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="68dp">
+
+                <ImageView
+                    android:id="@+id/menu_title_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12dp"
+                    android:src="@drawable/default_head_120" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/menu_title_icon"
+                    android:text="@string/user_name" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12dp"
+                    android:background="@drawable/menu_sign_background" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_color" />
+
+            <ListView android:id="@+id/drawer_menu_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
 
         </LinearLayout>
 

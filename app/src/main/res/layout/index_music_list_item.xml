@@ -1,43 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/item_height"
-    android:background="@drawable/list_item_background">
+    android:layout_height="@dimen/item_height">
 
     <ImageView
         android:id="@+id/item_icon"
-        android:layout_marginLeft="@dimen/item_icon_left_gap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/list_item_first_left_gap" />
 
     <TextView
         android:id="@+id/item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:paddingLeft="@dimen/item_title_left_gap"
-        android:paddingRight="@dimen/item_title_right_gap"
+        android:layout_toRightOf="@+id/item_icon"
+        android:paddingLeft="@dimen/list_item_second_left_gap"
         android:text="本地音乐"
-        android:textColor="@color/index_music_item_title_color"
-        android:textSize="16sp" />
+        style="@style/middlTextStyle"/>
 
     <TextView
-        android:id="@+id/item_count"
+        android:id="@+id/item_second_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/item_title"
         android:layout_centerVertical="true"
-        android:text="(10)"
-        android:textColor="@color/index_music_item_count_color"
-        android:textSize="12sp" />
+        android:layout_toRightOf="@id/item_title"
+        android:text="(0)"
+        style="@style/smallTextStyle"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/item_line_gap"
-        android:layout_marginRight="@dimen/item_line_gap"
-        android:layout_alignParentBottom="true"
-        android:background="@color/index_music_item_line_color" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/list_item_first_right_gap" />
+
+    <!-- <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="1dp"
+         android:layout_marginLeft="@dimen/item_line_gap"
+         android:layout_marginRight="@dimen/item_line_gap"
+         android:layout_alignParentBottom="true"
+         android:background="@color/index_music_item_line_color" />-->
 
 </RelativeLayout>

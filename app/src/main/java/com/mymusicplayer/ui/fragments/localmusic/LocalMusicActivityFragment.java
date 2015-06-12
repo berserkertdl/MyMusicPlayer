@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.mymusicplayer.R;
 import com.mymusicplayer.helper.database.DBManager;
 import com.mymusicplayer.helper.database.SortCursor;
+import com.mymusicplayer.helper.utils.MusicUtil;
 import com.mymusicplayer.services.PlayerService;
 import com.mymusicplayer.sliderbar.SideBar;
 import com.mymusicplayer.ui.adapters.SortCursorAdpter;
@@ -66,12 +67,7 @@ public class LocalMusicActivityFragment extends Fragment {
         localMusicList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SortCursor cursor = (SortCursor) parent.getItemAtPosition(position);
-                String url = cursor.getString(cursor.getColumnIndexOrThrow("_data"));
-                Intent intent = new Intent(getActivity(), PlayerService.class);
-                intent.putExtra("flag",2);
-                intent.putExtra("url", url);
-                getActivity().startService(intent);
+                MusicUtil.playMusic(getActivity(),(SortCursor) parent.getItemAtPosition(position));
             }
         });
         localMusicList.setAdapter(cursorAdapter);

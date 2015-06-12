@@ -1,13 +1,20 @@
 package com.mymusicplayer.helper.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //跟App相关的辅助类
 public class AppUtils
 {
+
+	private static List<Activity> activityList = new ArrayList<Activity>();
+
 
 	private AppUtils()
 	{
@@ -55,6 +62,28 @@ public class AppUtils
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+
+
+	public static void remove(Activity activity){
+		activityList.remove(activity);
+	}
+
+
+
+	public static void add(Activity activity){
+		activityList.add(activity);
+	}
+
+	/**
+	 * 退出应用
+	 * */
+	public static void finishProgram(){
+		for (Activity activity : activityList) {
+			activity.finish();
+		}
+		android.os.Process.killProcess(android.os.Process.myPid());
 	}
 
 }

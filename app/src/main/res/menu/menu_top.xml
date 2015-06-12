@@ -35,9 +35,9 @@
         android:id="@+id/actionBar_search"
         android:title="@string/context_menu"
         android:icon="@drawable/actionbar_search_selector"
-        app:actionViewClass="android.support.v7.widget.SearchView"
         android:orderInCategory="100"
         app:showAsAction="always"/>
+    <!--app:actionViewClass="android.support.v7.widget.SearchView"-->
 
     <item
         android:id="@+id/context_menu"

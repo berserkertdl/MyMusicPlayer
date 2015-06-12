@@ -5,6 +5,6 @@
         <!--導航列的背景色，但只能用在 API Level 21 (Android 5) 以上的-->
         <item name="android:navigationBarColor">#E03432</item>
         <!--各控制元件的預設顏色。-->
-        <item name="android:colorControlNormal">?attr/colorControlNormal</item>
+        <item name="android:colorControlNormal">@color/white</item>
     </style>
 </resources>
