@@ -98,6 +98,7 @@ public class DataSource {
         item = new HashMap<String,Object>();
         item.put(keys[0],R.drawable.music_icn_artist);
         item.put(keys[1],values[3]);
+        item.put(keys[2],"（0）");
         list.add(item);
 
         item = new HashMap<String,Object>();

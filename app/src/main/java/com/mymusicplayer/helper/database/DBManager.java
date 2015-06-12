@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.MediaStore;
 
+import com.mymusicplayer.helper.utils.L;
 import com.mymusicplayer.helper.vo.MusicEntity;
 
 import java.util.Date;
@@ -17,6 +18,8 @@ import java.util.List;
  * Created by Administrator on 2015/6/1 0001.
  */
 public class DBManager {
+
+    private static final String TAG = DBManager.class.getSimpleName();
 
     private static DBOpenHelper hepler;
     private static SQLiteDatabase db;
@@ -85,11 +88,11 @@ public class DBManager {
                         objs[i] = cursor.getString(i);
                     }
                 }
-                db.execSQL("insert into " + table_name + " values( " + stringBuffer + ",0 )", objs);
+                db.execSQL("insert into " + table_name + " values( " + stringBuffer + ",0,null )", objs);
             }
             db.setTransactionSuccessful();
         } catch (Exception e) {
-            e.printStackTrace();
+            L.e(TAG, e.getMessage());
         } finally {
             db.endTransaction();
         }

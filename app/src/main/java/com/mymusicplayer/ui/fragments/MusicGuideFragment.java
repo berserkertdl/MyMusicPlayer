@@ -15,6 +15,7 @@ import android.widget.SimpleAdapter;
 import com.mymusicplayer.PullToRefreshView;
 import com.mymusicplayer.R;
 import com.mymusicplayer.activities.LocalMusicActivity;
+import com.mymusicplayer.activities.LocalMusicListActivity;
 import com.mymusicplayer.helper.DataSource;
 import com.mymusicplayer.helper.database.DBManager;
 import com.mymusicplayer.helper.utils.DBThread;
@@ -53,23 +54,32 @@ public class MusicGuideFragment extends Fragment {
     }
 
 
-
     private SimpleAdapter gudieAdpter;
 
-    private List<HashMap<String,Object>> guideList;
+    private List<HashMap<String, Object>> guideList;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        guideList = (List<HashMap<String,Object>>) DataSource.getMusicGuides(getActivity(),false);
-        gudieAdpter = new SimpleAdapter(getActivity(), guideList,R.layout.index_music_list_item,new String []{"item_icon","item_title","item_second_title"},new int []{R.id.item_icon,R.id.item_title,R.id.item_second_title,});
-        if(index_music_list!=null){
+        guideList = (List<HashMap<String, Object>>) DataSource.getMusicGuides(getActivity(), false);
+        gudieAdpter = new SimpleAdapter(getActivity(), guideList, R.layout.index_music_list_item, new String[]{"item_icon", "item_title", "item_second_title"}, new int[]{R.id.item_icon, R.id.item_title, R.id.item_second_title,});
+
+        if (index_music_list != null) {
             index_music_list.setAdapter(gudieAdpter);
         }
         index_music_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getActivity(), LocalMusicActivity.class));
+                Intent intent = null;
+                switch (position){
+                    case 0:
+                        startActivity(new Intent(getActivity(), LocalMusicActivity.class));
+                        break;
+                    case 1:
+                        startActivity(new Intent(getActivity(), LocalMusicListActivity.class));
+                        break;
+
+                }
             }
         });
 
@@ -80,14 +90,16 @@ public class MusicGuideFragment extends Fragment {
                 pullToRefreshView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        guideList = (List<HashMap<String,Object>>) DataSource.getMusicGuides(getActivity(),true);
+                       List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) DataSource.getMusicGuides(getActivity(), true);
+                        guideList.removeAll(guideList);
+                        guideList.addAll(list);
                         gudieAdpter.notifyDataSetChanged();
                         pullToRefreshView.setRefreshing(false);
                     }
-                },1000);
+                }, 1000);
             }
         });
-        pullToRefreshView.setRefreshing(true,true);
+        pullToRefreshView.setRefreshing(true, true);
     }
 
     @Override
@@ -96,7 +108,7 @@ public class MusicGuideFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.index_music, container, false);
-        index_music_list =(ListView) root.findViewById(R.id.local_music_list);
+        index_music_list = (ListView) root.findViewById(R.id.local_music_list);
         pullToRefreshView = (PullToRefreshView) root.findViewById(R.id.pull_refresh_view);
         return root;
 

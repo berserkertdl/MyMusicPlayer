@@ -82,11 +82,12 @@ public class IndexActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         AppUtils.add(this);
         setContentView(R.layout.activity_index);
-        initDrawer();
         initToolbar();
+        initData();
+        initDrawer();
         initComponet();
 //        initMenuFragment();
-        initData();
+
     }
 
     private void initDrawer() {
@@ -161,7 +162,6 @@ public class IndexActivity extends ActionBarActivity {
 
     private void initComponet() {
 
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
         discover_bar = (ImageView) findViewById(R.id.actionBar_discover);
         music_bar = (ImageView) findViewById(R.id.actionBar_music);
         friends_bar = (ImageView) findViewById(R.id.actionBar_friends);
@@ -199,6 +199,7 @@ public class IndexActivity extends ActionBarActivity {
         fragmentPagerAdapter.addFragment(new DiscoverFragment());
         fragmentPagerAdapter.addFragment(new MusicGuideFragment());
         fragmentPagerAdapter.addFragment(new FirendsFragment());
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mViewPager.setAdapter(fragmentPagerAdapter);
 
     }

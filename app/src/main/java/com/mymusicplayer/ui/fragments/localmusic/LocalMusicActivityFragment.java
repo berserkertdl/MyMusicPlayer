@@ -52,22 +52,23 @@ public class LocalMusicActivityFragment extends Fragment {
                     localMusicList.setSelection(position);
                 }
             }
-
         });
 
         SortCursor cursor = null;
-        if(artist_id!=0){
+        if (artist_id != 0) {
             cursor = new SortCursor(DBManager.getLocalMusicByArtist(artist_id), MediaStore.Audio.AudioColumns.TITLE);
-        }else if (album_id!=0){
+        } else if (album_id != 0) {
             cursor = new SortCursor(DBManager.getLocalMusicByAlbum(album_id), MediaStore.Audio.AudioColumns.TITLE);
+        }else{
+            cursor = new SortCursor(DBManager.lateLyMusicPlayList(), MediaStore.Audio.AudioColumns.TITLE);
         }
         cursorAdapter = new SortCursorAdpter(getActivity(), R.layout.local_music_list_item, cursor,
-                new String[]{MediaStore.Audio.Media.TITLE,MediaStore.Audio.AudioColumns.ARTIST,MediaStore.Audio.AudioColumns.ALBUM}, new int [] {R.id.title,R.id.subTitle,R.id.midTitle});
+                new String[]{MediaStore.Audio.Media.TITLE, MediaStore.Audio.AudioColumns.ARTIST, MediaStore.Audio.AudioColumns.ALBUM}, new int[]{R.id.title, R.id.subTitle, R.id.midTitle});
         getActivity().startManagingCursor(cursor);
         localMusicList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MusicUtil.playMusic(getActivity(),(SortCursor) parent.getItemAtPosition(position));
+                MusicUtil.playMusic(getActivity(), (SortCursor) parent.getItemAtPosition(position));
             }
         });
         localMusicList.setAdapter(cursorAdapter);
