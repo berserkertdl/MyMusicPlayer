@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/item_height">
+    android:layout_height="@dimen/item_height" android:background="@drawable/abc_item_background_holo_light">
 
     <ImageView
         android:id="@+id/item_icon"
@@ -12,22 +12,22 @@
 
     <TextView
         android:id="@+id/item_title"
+        style="@style/middlTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/item_icon"
         android:paddingLeft="@dimen/list_item_second_left_gap"
-        android:text="本地音乐"
-        style="@style/middlTextStyle"/>
+        android:text="本地音乐" />
 
     <TextView
         android:id="@+id/item_second_title"
+        style="@style/smallTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/item_title"
-        android:text="(0)"
-        style="@style/smallTextStyle"/>
+        android:text="(0)" />
 
 
     <ImageView
@@ -37,12 +37,12 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/list_item_first_right_gap" />
 
-    <!-- <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="1dp"
-         android:layout_marginLeft="@dimen/item_line_gap"
-         android:layout_marginRight="@dimen/item_line_gap"
-         android:layout_alignParentBottom="true"
-         android:background="@color/index_music_item_line_color" />-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/item_line_gap"
+        android:layout_marginRight="@dimen/item_line_gap"
+        android:background="@color/index_music_item_line_color" />
 
 </RelativeLayout>

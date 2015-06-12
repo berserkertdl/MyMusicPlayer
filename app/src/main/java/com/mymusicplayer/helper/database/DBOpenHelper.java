@@ -74,7 +74,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                 "'album_id:1' INTEGER," +
                 "album_key TEXT," +
                 "album TEXT," +
-                "is_delete INTEGER" +
+                "is_delete INTEGER," +
                 "last_play_time INTEGER" +   //最后一次播放时间
                 ")");
     }
@@ -86,6 +86,5 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 //        db.execSQL("ALTER TABLE tb_music ADD COLUMN other STRING");
     }
-
 
 }
